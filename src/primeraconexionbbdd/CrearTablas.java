@@ -18,16 +18,16 @@ public class CrearTablas {
                     + "titulacion VARCHAR(30) NOT NULL,"
                     + "PRIMARY KEY (dni))"
                     + "ENGINE INNODB;");
-
+              
             sentencia.execute("CREATE TABLE IF NOT EXISTS ALUMNOS"
-                    + "(idal int NOT NULL AUTO_INCREMENT,"
+                    + "(idal int(4) NOT NULL AUTO_INCREMENT,"
                     //PENDIENTES LAS CLAVES SECUNDARIAS CON EXPRESIONES REGULARES
                     + "nombre varchar(30),"
                     + "PRIMARY KEY (idal))"
                     + "ENGINE INNODB;");
 
             sentencia.execute("CREATE TABLE IF NOT EXISTS ASIGNATURAS"
-                    + "(idas int NOT NULL AUTO_INCREMENT,"
+                    + "(idas int(4) NOT NULL AUTO_INCREMENT,"
                     + "nombreCiclo varchar(30),"
                     + "PRIMARY KEY(idas))"
                     + "ENGINE INNODB;");
@@ -35,17 +35,21 @@ public class CrearTablas {
             sentencia.execute("CREATE TABLE IF NOT EXISTS PROFESORESALUMNOSASIGNATURAS"
                     + "(dni VARCHAR(30) NOT NULL,"
                     + "idal int(4) NOT NULL,"
-                    + "idas int(4) NOT NULL," 
+                    + "idas int(4) NOT NULL,"
                     + "PRIMARY KEY(idal,idas),"                
                     + "FOREIGN KEY(idal) REFERENCES ALUMNOS(idal),"
-                    + "FOREIGN KEY (idas) REFERENCES ASIGNATURAS(idas))"                  
+                    + "FOREIGN KEY (idas) REFERENCES ASIGNATURAS(idas),"
+                    + "FOREIGN KEY (dni) REFERENCES PROFESORES (dni))"                  
                     + "ENGINE INNODB;");
 
             sentencia.execute("CREATE TABLE IF NOT EXISTS NOTAS"
                     + "(idal int not null,"
                     + "idas int not null,"
                     + "fecha date not null,"
-                    + "nota float not null)"
+                    + "nota float not null,"
+                    + "PRIMARY KEY (idal,idas,fecha),"
+                    + "FOREIGN KEY(idal) REFERENCES ALUMNOS(idal),"
+                    + "FOREIGN KEY (idas) REFERENCES ASIGNATURAS(idas))"
                     + "ENGINE INNODB;");
                     
     

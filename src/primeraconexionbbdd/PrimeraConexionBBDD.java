@@ -14,8 +14,6 @@ public class PrimeraConexionBBDD {
 
     public static void main(String[] args) throws IOException {
        
-        //Declaracion de conectores
-        /*Connection conexion = null;*/
         Statement sentencia = null;
         ResultSet rstAux = null;
         
@@ -24,7 +22,7 @@ public class PrimeraConexionBBDD {
         
         //Declaracion de driver y url
         String driver= "com.mysql.jdbc.Driver";       
-        String url= "jdbc:mysql://localhost:3307/LIBRERIADANI?user=root&password=usbw";
+        String url= "jdbc:mysql://localhost:3307/AUXILIAR?user=root&password=usbw";
                
         /*No es necesario desde la ultima versión
         try {
