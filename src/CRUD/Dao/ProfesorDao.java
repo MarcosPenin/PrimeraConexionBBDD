@@ -22,7 +22,7 @@ public class ProfesorDao {
 
         Statement stm = Conexion.sentencia;
         Connection con = Conexion.conexion;
-        String sql = "INSERT INTO profesores (dni,nombre,titulacion,dni) values ('" + profesor.getDni()
+        String sql = "INSERT INTO profesores (dni,nombre,titulacion) values ('" + profesor.getDni()
                 + "','" + profesor.getNombre() + "','" + profesor.getTitulacion() + "')";
 
         try {

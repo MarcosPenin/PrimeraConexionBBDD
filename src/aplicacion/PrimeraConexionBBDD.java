@@ -2,6 +2,7 @@ package aplicacion;
 
 import CRUD.Creation.CrearTablas;
 import CRUD.Connection.Conexion;
+import CRUD.Dao.ProfesorDao;
 import CRUD.Model.Profesor;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -41,7 +42,8 @@ public class PrimeraConexionBBDD {
                     break;
                 case 1:
                     Profesor profesor=new Profesor("DNI", "NOMBRE", "TITULACION");
-                    
+                    ProfesorDao x=new ProfesorDao();
+                    x.registrar(profesor);
                     
                     
 //                    InsertarFilas.insertarFila(sentencia, rstAux, lee);
