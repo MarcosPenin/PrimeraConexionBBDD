@@ -1,4 +1,4 @@
-package primeraconexionbbdd;
+package CRUD.Creation;
 
 import java.sql.*;
 
@@ -10,6 +10,7 @@ public class CrearTablas {
 
     public static void crearTabla(Statement sentencia) {
         try {
+            sentencia.execute("DROP DATABASE IF EXISTS INSTITUTO;");
             sentencia.execute("CREATE DATABASE IF NOT EXISTS INSTITUTO;");
             sentencia.execute("USE INSTITUTO;");
             sentencia.execute("CREATE TABLE IF NOT EXISTS PROFESORES"
@@ -21,17 +22,18 @@ public class CrearTablas {
               
             sentencia.execute("CREATE TABLE IF NOT EXISTS ALUMNOS"
                     + "(idal int(4) NOT NULL AUTO_INCREMENT,"
-                    //PENDIENTES LAS CLAVES SECUNDARIAS CON EXPRESIONES REGULARES
+                    + "codigoAlumno VARCHAR(4) UNIQUE NOT NULL,"
                     + "nombre varchar(30),"
                     + "PRIMARY KEY (idal))"
                     + "ENGINE INNODB;");
 
             sentencia.execute("CREATE TABLE IF NOT EXISTS ASIGNATURAS"
                     + "(idas int(4) NOT NULL AUTO_INCREMENT,"
+                    + "codigoAsignatura VARCHAR(4) NOT NULL UNIQUE,"
                     + "nombreCiclo varchar(30),"
                     + "PRIMARY KEY(idas))"
                     + "ENGINE INNODB;");
-
+            
             sentencia.execute("CREATE TABLE IF NOT EXISTS PROFESORESALUMNOSASIGNATURAS"
                     + "(dni VARCHAR(30) NOT NULL,"
                     + "idal int(4) NOT NULL,"
@@ -41,7 +43,8 @@ public class CrearTablas {
                     + "FOREIGN KEY (idas) REFERENCES ASIGNATURAS(idas),"
                     + "FOREIGN KEY (dni) REFERENCES PROFESORES (dni))"                  
                     + "ENGINE INNODB;");
-
+  
+            
             sentencia.execute("CREATE TABLE IF NOT EXISTS NOTAS"
                     + "(idal int not null,"
                     + "idas int not null,"
@@ -51,8 +54,7 @@ public class CrearTablas {
                     + "FOREIGN KEY(idal) REFERENCES ALUMNOS(idal),"
                     + "FOREIGN KEY (idas) REFERENCES ASIGNATURAS(idas))"
                     + "ENGINE INNODB;");
-                    
-    
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             System.exit(5);
