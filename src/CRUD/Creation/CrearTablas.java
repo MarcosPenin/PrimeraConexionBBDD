@@ -10,7 +10,7 @@ public class CrearTablas {
 
     public static void crearTabla(Statement sentencia) {
         try {
-            sentencia.execute("DROP DATABASE IF EXISTS INSTITUTO;");
+//            sentencia.execute("DROP DATABASE IF EXISTS INSTITUTO;");
             sentencia.execute("CREATE DATABASE IF NOT EXISTS INSTITUTO;");
             sentencia.execute("USE INSTITUTO;");
             sentencia.execute("CREATE TABLE IF NOT EXISTS PROFESORES"

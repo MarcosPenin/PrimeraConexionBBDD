@@ -6,7 +6,7 @@ package CRUD.Model;
  * @author a20marcosgp
  */
 public class Profesor {
-   
+    
     private String dni;
     private String nombre;
     private String titulacion;
@@ -43,6 +43,11 @@ public class Profesor {
 
     public void setTitulacion(String titulacion) {
         this.titulacion = titulacion;
+    }
+    
+    @Override
+    public String toString(){
+        return "DNI: "+ dni + " \tNombre: " + nombre + "\tTitulación: " + titulacion;
     }
     
     
