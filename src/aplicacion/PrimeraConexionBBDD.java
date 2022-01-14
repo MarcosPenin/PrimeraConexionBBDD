@@ -34,34 +34,18 @@ public class PrimeraConexionBBDD {
             System.out.println("*****************************");
             menuPrincipal.printMenu();
             op = sc.nextByte();
-
             switch (op) {
-                case 0:
-                    System.out.println("SALIENDO");
-                    break;
                 case 1:
-                    System.out.println("¿En qué tabla deseas registrar una fila?");
-                    menuTablas.printMenu();
-                    op2 = sc.nextByte();
-                    switch (op2) {
-                        case 1:
-                            ProfesorController.registrar();
-                    }
-
-//                    InsertarFilas.insertarFila(sentencia, rstAux, lee);
+                    ProfesorController.registrar();
                     break;
                 case 2:
-                    
-
-//                    BorrarFilas.borrarFila(sentencia, rstAux, lee);
+                    ProfesorController.eliminar();
                     break;
                 case 3:
-//                    ModificarFilas.modificarFila(sentencia, rstAux, lee);
+                    ProfesorController.actualizar();
                     break;
                 case 4:
                     ProfesorController.buscar();
-                    
-//                    Consultar.consulta(sentencia, rstAux, lee);
                     break;
                 case 5:
                     ProfesorController.obtener();

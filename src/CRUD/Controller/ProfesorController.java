@@ -2,6 +2,7 @@ package CRUD.Controller;
 
 import CRUD.Dao.ProfesorDao;
 import CRUD.Model.Profesor;
+import CRUD.Vista.ProfesorDatos;
 import CRUD.Vista.ProfesorVista;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,66 +15,40 @@ import java.util.Scanner;
 public class ProfesorController {
 
     static Scanner sc = new Scanner(System.in);
+    static ProfesorVista vista = new ProfesorVista();
 
     public static void registrar() {
-
-        System.out.println("Introduce el dni del profesor");
-        String dni = sc.nextLine();
-        System.out.println("Introduce el nombre del profesor");
-        String nombre = sc.nextLine();
-        System.out.println("Introduce la titulación del profesor");
-        String titulacion = sc.nextLine();
-
-        Profesor profesor = new Profesor(dni, nombre, titulacion);
+        Profesor profesor = ProfesorDatos.datosRegistrar();
         ProfesorDao dao = new ProfesorDao();
-        if (dao.registrar(profesor)) {
-            System.out.println("Profesor registrado con éxito");
-        };
+        dao.registrar(profesor);
     }
 
     public static void buscar() {
-        System.out.println("Introduce el dni del profesor que quieres buscar");
-        String dni = sc.nextLine();
+        String dni = ProfesorDatos.datosDni();
         ProfesorDao dao = new ProfesorDao();
-        Profesor x = dao.buscar(dni);
-        ProfesorVista vista = new ProfesorVista();
+        Profesor x = dao.buscar(dni);    
         vista.verProfesor(x);
 
     }
-//
-//    public static Profesor buscar2() {
-//        System.out.println("Introduce el dni del profesor que quieres buscar");
-//        String dni = sc.nextLine();
-//        ProfesorDao dao = new ProfesorDao();
-//        Profesor x = dao.buscar(dni);
-//        return x;
-//    }
 
-    public void actualizar() {
-        System.out.println("Introduce el dni del profesor que quieras actualizar");
-        String dni = sc.nextLine();
-
-        System.out.println("Introduce el nuevo nombre del profesor");
-        String nombre = sc.nextLine();
-        System.out.println("Introduce la nueva titulación del profesor");
-        String titulacion = sc.nextLine();
-
-        Profesor x = new Profesor(dni, nombre, titulacion);
+    public static void actualizar() {
+        String dni = ProfesorDatos.datosDni();
+        Profesor profesor = ProfesorDatos.datosActualizar(dni);
         ProfesorDao dao = new ProfesorDao();
-        dao.actualizar(dni,x);
-  
+        dao.actualizar(dni, profesor);
+
     }
 
-//
-//    public void eliminar(Profesor cliente) {
-//       ProfesorDao dao = new ProfesorDao();
-//        dao.eliminar(cliente);
-//    }
+    public static void eliminar() {
+        String dni = ProfesorDatos.datosDni();
+        ProfesorDao dao = new ProfesorDao();
+        dao.eliminar(dni);
+    }
+
     public static void obtener() {
         List<Profesor> profesores = new ArrayList<Profesor>();
         ProfesorDao dao = new ProfesorDao();
-        profesores = dao.obtener();
-        ProfesorVista vista = new ProfesorVista();
+        profesores = dao.obtener();      
         vista.verProfesores(profesores);
     }
 }

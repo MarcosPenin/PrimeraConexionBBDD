@@ -6,7 +6,9 @@
 package CRUD.Dao;
 
 import CRUD.Connection.Conexion;
+import CRUD.IDao.IProfesorDao;
 import CRUD.Model.Profesor;
+import CRUD.Vista.ProfesorVista;
 import excepciones.DniInvalido;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -21,19 +23,19 @@ import java.util.List;
  *
  * @author a20marcosgp
  */
-public class ProfesorDao {
-
+public class ProfesorDao implements IProfesorDao {
     static Statement stm = Conexion.sentencia;
     static Connection con = Conexion.conexion;
+    static ProfesorVista vista = new ProfesorVista();
 
-    public boolean registrar(Profesor profesor) {
-        boolean registrar = false;
+    @Override
+    public void registrar(Profesor profesor) {
         String sql = "INSERT INTO profesores (dni,nombre,titulacion) values ('" + profesor.getDni()
                 + "','" + profesor.getNombre() + "','" + profesor.getTitulacion() + "')";
         try {
             ControlData.comprobarDni(profesor.getDni());
             stm.execute(sql);
-            registrar = true;
+            vista.exito();
         } catch (DniInvalido e) {
             System.out.println("No se ha podido guardar, el DNI no es válido");
         } catch (SQLIntegrityConstraintViolationException e) {
@@ -41,18 +43,14 @@ public class ProfesorDao {
         } catch (SQLException e) {
             System.out.println("Error: Clase ClienteDaoImpl, método registrar" + e);
         }
-
-        return registrar;
     }
 
+    @Override
     public List<Profesor> obtener() {
 
         ResultSet rs = null;
-
         String sql = "SELECT * FROM PROFESORES";
-
-        List<Profesor> profesores = new ArrayList<Profesor>();
-
+        List<Profesor> profesores = new ArrayList<>();
         try {
             rs = stm.executeQuery(sql);
             while (rs.next()) {
@@ -65,49 +63,46 @@ public class ProfesorDao {
             rs.close();
         } catch (SQLException e) {
             System.out.println("Error: Clase ClienteDaoImple, método obtener");
-            e.printStackTrace();
         }
 
         return profesores;
     }
 
-    
-   public Profesor buscar(String dni){
-       Profesor x=null;
-       List<Profesor> profesores=obtener();
-       for (Profesor y:profesores){
-           if(y.getDni().equalsIgnoreCase(dni)){
-              x=y;
-           }
-       }
-      return x;
-   }
-    
-    
-       public boolean actualizar(String dni,Profesor profesor ) {
-
-        boolean actualizar=false;
-        
-
-        String sql="UPDATE PROFESORES SET dni='"
-        
-        
-        String sql2="UPDATE CLIENTE SET id='"+cliente.getId()+"', nombre='"+cliente.getNombre()+"', apellido1='"
-                +cliente.getApellido()+"'" +" WHERE dni='"+cliente.getDni()+"'";
-        try {
-            connect=Conexion.conectar();
-            stm=connect.createStatement();
-            stm.execute(sql);
-            actualizar=true;
-        } catch (SQLException e) {
-            System.out.println("Error: Clase ClienteDaoImple, método actualizar");
-            e.printStackTrace();
-        }		
-        return actualizar;
+    @Override
+    public Profesor buscar(String dni) {
+        Profesor x = null;
+        List<Profesor> profesores = obtener();
+        for (Profesor y : profesores) {
+            if (y.getDni().equalsIgnoreCase(dni)) {
+                x = y;
+            }
+        }
+        return x;
     }
-    
-    
-    
-    
-    
+
+    @Override
+    public void actualizar(String dni, Profesor profesor) {
+
+        String sql = "UPDATE PROFESORES SET nombre='" + profesor.getNombre() + "', titulacion='"
+                + profesor.getTitulacion() + "'" + " WHERE dni='" + profesor.getDni() + "'";
+        try {
+            stm.execute(sql);
+            vista.exito();
+        } catch (SQLException e) {
+            System.out.println("Error: Clase ClienteDaoImple, método actualizar");          
+        }
+    }
+
+    @Override
+    public void eliminar(String dni) {
+        String sql = "DELETE FROM CLIENTE WHERE dni='" + dni + "'";
+        try {
+            stm.execute(sql);
+            vista.exito();
+        } catch (SQLException e) {
+            System.out.println("Error: Clase ClienteDaoImple, método eliminar");
+            e.printStackTrace();
+        }
+    }
+
 }
