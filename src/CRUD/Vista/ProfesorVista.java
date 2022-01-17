@@ -15,20 +15,16 @@ import java.util.List;
  */
 public class ProfesorVista {
 
-    public void exito(){
-        System.out.println("Operación realizada con éxito");
-    }
-   
     public void verProfesores(List<Profesor> profesores) {
         for (Profesor x : profesores) {
-            System.out.println("Datos del Cliente: " + x.toString());
+            System.out.println("Datos del Profesor: " + x.toString());
         }
     }
 
     public void verProfesor(Profesor profesor) {
 
         if (profesor != null) {
-            System.out.println("Datos del Cliente: " + profesor.toString());
+            System.out.println("Datos del Profesor: " + profesor.toString());
         } else {
             System.out.println("El profesor buscado no existe");
         }

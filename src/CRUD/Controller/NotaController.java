@@ -1,11 +1,11 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package CRUD.Controller;
 
-import static CRUD.Controller.AsignaturaController.dao;
 import CRUD.Dao.ProfesorDao;
-import CRUD.Model.Asignatura;
 import CRUD.Model.Profesor;
-import CRUD.Vista.AsignaturaDatos;
-import CRUD.Vista.Mensajes;
 import CRUD.Vista.ProfesorDatos;
 import CRUD.Vista.ProfesorVista;
 import java.util.ArrayList;
@@ -14,47 +14,46 @@ import java.util.Scanner;
 
 /**
  *
- * @author a20marcosgp
+ * @author usuario
  */
-public class ProfesorController {
+public class NotaController {
 
     static Scanner sc = new Scanner(System.in);
     static ProfesorVista vista = new ProfesorVista();
-    static ProfesorDao dao=new ProfesorDao();
 
     public static void registrar() {
         Profesor profesor = ProfesorDatos.datosRegistrar();
+        ProfesorDao dao = new ProfesorDao();
         dao.registrar(profesor);
     }
 
     public static void buscar() {
         String dni = ProfesorDatos.datosDni();
+        ProfesorDao dao = new ProfesorDao();
         Profesor x = dao.buscar(dni);    
         vista.verProfesor(x);
+
     }
 
     public static void actualizar() {
         String dni = ProfesorDatos.datosDni();
-        if(dao.buscar(dni)!=null){
-             Profesor profesor = ProfesorDatos.datosActualizar(dni);
+        Profesor profesor = ProfesorDatos.datosActualizar(dni);
+        ProfesorDao dao = new ProfesorDao();
         dao.actualizar(profesor);
-        }else{
-            Mensajes.profesorNoExiste();
-        }
+
     }
 
     public static void eliminar() {
         String dni = ProfesorDatos.datosDni();
-         if(dao.buscar(dni)!=null){     
-        dao.eliminar(dni);}else{
-             Mensajes.profesorNoExiste();
-         }
+        ProfesorDao dao = new ProfesorDao();
+        dao.eliminar(dni);
     }
-    
 
     public static void obtener() {
         List<Profesor> profesores = new ArrayList<Profesor>();
+        ProfesorDao dao = new ProfesorDao();
         profesores = dao.obtener();      
         vista.verProfesores(profesores);
     }
+ 
 }

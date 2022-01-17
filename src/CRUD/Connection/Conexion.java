@@ -28,7 +28,7 @@ public class Conexion {
     public static Connection conectar() {
 
         String driver = "com.mysql.jdbc.Driver";
-        String url = "jdbc:mysql://localhost:3307/AUXILIAR?user=root&password=usbw";
+        String url = "jdbc:mysql://localhost:3307/auxiliar?user=root&password=usbw";
 
         try {
             conexion = DriverManager.getConnection(url);

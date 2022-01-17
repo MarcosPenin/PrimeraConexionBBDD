@@ -6,6 +6,7 @@ package CRUD.Vista;
 
 import CRUD.Model.Profesor;
 import java.util.Scanner;
+import utilidades.ControlData;
 
 /**
  *
@@ -17,18 +18,18 @@ public class ProfesorDatos {
 
     public static Profesor datosRegistrar() {
         System.out.println("Introduce el dni del profesor");
-        String dni = sc.nextLine();
+        String dni = ControlData.lerString(sc);
         System.out.println("Introduce el nombre del profesor");
-        String nombre = sc.nextLine();
+        String nombre = ControlData.lerString(sc);
         System.out.println("Introduce la titulación del profesor");
-        String titulacion = sc.nextLine();
+        String titulacion = ControlData.lerString(sc);
         Profesor profesor = new Profesor(dni, nombre, titulacion);
         return profesor;
     }
     
     public static String datosDni(){
         System.out.println("Introduce el dni del profesor que quieres buscar");
-        String dni = sc.nextLine();
+        String dni = ControlData.lerString(sc);
         return dni;
     }
     
@@ -36,9 +37,9 @@ public class ProfesorDatos {
     
     public static Profesor datosActualizar(String dni){
         System.out.println("Introduce el nuevo nombre del profesor");
-        String nombre = sc.nextLine();
+        String nombre = ControlData.lerString(sc);
         System.out.println("Introduce la nueva titulación del profesor");
-        String titulacion = sc.nextLine();
+        String titulacion = ControlData.lerString(sc);
 
         Profesor profesor = new Profesor(dni, nombre, titulacion);
         return profesor;

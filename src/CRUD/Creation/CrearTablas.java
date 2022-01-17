@@ -19,7 +19,7 @@ public class CrearTablas {
                     + "titulacion VARCHAR(30) NOT NULL,"
                     + "PRIMARY KEY (dni))"
                     + "ENGINE INNODB;");
-              
+    //ZEROFILL          
             sentencia.execute("CREATE TABLE IF NOT EXISTS ALUMNOS"
                     + "(idal int(4) NOT NULL AUTO_INCREMENT,"
                     + "codigoAlumno VARCHAR(4) UNIQUE NOT NULL,"

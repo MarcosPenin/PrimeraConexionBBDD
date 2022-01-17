@@ -4,6 +4,7 @@
  */
 package CRUD.IDao;
 
+import CRUD.Model.Nota;
 import CRUD.Model.Profesor;
 import java.util.List;
 
@@ -11,12 +12,13 @@ import java.util.List;
  *
  * @author usuario
  */
-public interface IProfesorDao {
-    
-    public void registrar(Profesor profesor);
-    public List<Profesor> obtener();
-    public Profesor buscar(String dni);
-    public void actualizar(Profesor profesor);
+public interface INotaDao {
+ 
+        public void registrar(Nota nota);
+    public List<Nota> obtener();
+    public Nota buscar(String dni);
+    public void actualizar(String dni, Nota nota);
     public void eliminar(String dni);
-
+    
+    
 }

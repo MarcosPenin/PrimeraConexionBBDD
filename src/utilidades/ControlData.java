@@ -1,6 +1,4 @@
-
 package utilidades;
-
 
 import excepciones.DniInvalido;
 import java.util.Scanner;
@@ -9,38 +7,39 @@ import java.util.regex.Pattern;
 
 public class ControlData {
 
+    /**
+     *   * Comprueba que el código esté formado por tres dígitos seguidos de
+     * una letra
+     *
+     * @param codigo
+     * @throws CodigoIncorrecto
+     */
+    public static boolean comprobarCodigo(String codigo) {
+        boolean correcto = false;
+        String valido = "\\d{3}[A-Z/a-z]";
+        if (Pattern.matches(valido, codigo)) {
+            correcto = true;
+        } else {
+            System.out.println("El código debe estar formado por tres dígitos seguidos de una letra");
+        }
+        return correcto; 
+    }
 
     /**
-     *   * Comprueba que el número de cuenta esté formado por cinco letras seguidas de un dígito numérico
-     * @param codigo
-     * @throws CodigoIncorrecto 
-     */
-   
-//    public static void comprobarNumCuenta(String codigo)throws CodigoIncorrecto{       
-//        String valido="[aA-zZ]{5}[\\d]";    
-//       if(Pattern.matches(valido, codigo)){
-//           System.out.println("El número tiene el formato correcto");
-//       }else{
-//           throw new CodigoIncorrecto();
-//       }
-//    }
-    
-    /**
-     * Comprueba que un DNI esté compuesto de ocho dígitos seguidos de una letra válida
+     * Comprueba que un DNI esté compuesto de ocho dígitos seguidos de una letra
+     * válida
+     *
      * @param dni
-     * @throws DniInvalido 
+     * @throws DniInvalido
      */
-    
-     public static void comprobarDni(String dni)throws DniInvalido{       
-        String dniValido= "\\d{8}[A-HJ-NP-TV-Z]";
-        if(!Pattern.matches(dniValido, dni)){
-           throw new DniInvalido();
-       }
+    public static void comprobarDni(String dni) throws DniInvalido {
+        String dniValido = "\\d{8}[A-HJ-NP-TV-Z]";
+        if (!Pattern.matches(dniValido, dni)) {
+            throw new DniInvalido();
+        }
     }
-     
-    
-       
-        /**
+
+    /**
      * Comproba que un parámetro está dentro dun rango
      *
      * @param l1 Tipo int - límite inferior del rango de números
@@ -49,7 +48,6 @@ public class ControlData {
      * l1..l2
      * @return Tipo boolean - true si está en el rango y false en caso contrario
      */
-    
     public static boolean rango(int l1, int l2, int op) {
         boolean enrango = true;
         if (op < l1 || op > l2) {

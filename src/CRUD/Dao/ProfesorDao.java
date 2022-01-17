@@ -8,6 +8,7 @@ package CRUD.Dao;
 import CRUD.Connection.Conexion;
 import CRUD.IDao.IProfesorDao;
 import CRUD.Model.Profesor;
+import CRUD.Vista.Mensajes;
 import CRUD.Vista.ProfesorVista;
 import excepciones.DniInvalido;
 import java.sql.Connection;
@@ -35,7 +36,7 @@ public class ProfesorDao implements IProfesorDao {
         try {
             ControlData.comprobarDni(profesor.getDni());
             stm.execute(sql);
-            vista.exito();
+            Mensajes.exito();
         } catch (DniInvalido e) {
             System.out.println("No se ha podido guardar, el DNI no es válido");
         } catch (SQLIntegrityConstraintViolationException e) {
@@ -81,24 +82,27 @@ public class ProfesorDao implements IProfesorDao {
     }
 
     @Override
-    public void actualizar(String dni, Profesor profesor) {
+    public void actualizar(Profesor profesor) {
 
         String sql = "UPDATE PROFESORES SET nombre='" + profesor.getNombre() + "', titulacion='"
                 + profesor.getTitulacion() + "'" + " WHERE dni='" + profesor.getDni() + "'";
         try {
             stm.execute(sql);
-            vista.exito();
+            Mensajes.exito();
         } catch (SQLException e) {
             System.out.println("Error: Clase ClienteDaoImple, método actualizar");          
         }
     }
 
+    
+    
+    
     @Override
     public void eliminar(String dni) {
-        String sql = "DELETE FROM CLIENTE WHERE dni='" + dni + "'";
+        String sql = "DELETE FROM PROFESORES WHERE dni='" + dni + "'";
         try {
             stm.execute(sql);
-            vista.exito();
+            Mensajes.exito();
         } catch (SQLException e) {
             System.out.println("Error: Clase ClienteDaoImple, método eliminar");
             e.printStackTrace();
