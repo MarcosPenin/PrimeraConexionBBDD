@@ -6,6 +6,7 @@ package CRUD.Vista;
 
 import CRUD.Controller.AlumnoController;
 import CRUD.Controller.AsignaturaController;
+import CRUD.Controller.MatriculaController;
 import CRUD.Controller.NotaController;
 import CRUD.Controller.ProfesorController;
 import java.util.ArrayList;
@@ -70,7 +71,10 @@ public class VerMenu {
                     AsignaturaController.registrar();
                     break;
                 case 4:
-                    NotaController.registrar();
+                    MatriculaController.registrar();
+                    break;
+                case 5:
+                    NotaController.registrar();                                
                     break;
 
             }
@@ -93,6 +97,9 @@ public class VerMenu {
                     AsignaturaController.eliminar();
                     break;
                 case 4:
+                    MatriculaController.eliminar();
+                    break;
+                case 5:                    
                     NotaController.eliminar();
                     break;
             }
@@ -115,6 +122,9 @@ public class VerMenu {
                     AsignaturaController.actualizar();
                     break;
                 case 4:
+                    MatriculaController.eliminar();
+                    break;
+                case 5:
                     NotaController.actualizar();
                     break;
             }
@@ -136,6 +146,9 @@ public class VerMenu {
                     AsignaturaController.buscar();
                     break;
                 case 4:
+                    MatriculaController.buscar();
+                    break;
+                case 5:
                     NotaController.buscar();
                     break;
             }
@@ -157,6 +170,8 @@ public class VerMenu {
                     AsignaturaController.obtener();
                     break;
                 case 4:
+                    MatriculaController.obtener();
+                case 5:
                     NotaController.obtener();
                     break;
             }
@@ -178,6 +193,7 @@ public class VerMenu {
         opciones.add("Profesores");
         opciones.add("Alumnos");
         opciones.add("Asignaturas");
+        opciones.add("Matrículas");
         opciones.add("Notas");
         opciones.add("Volver");
         return opciones;

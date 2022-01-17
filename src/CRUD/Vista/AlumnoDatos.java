@@ -5,6 +5,7 @@
 package CRUD.Vista;
 
 import CRUD.Model.Alumno;
+import CRUD.Model.Asignatura;
 import CRUD.Model.Profesor;
 import java.util.Scanner;
 import utilidades.ControlData;
@@ -16,7 +17,7 @@ import utilidades.ControlData;
 public class AlumnoDatos {
 
     static Scanner sc = new Scanner(System.in);
-
+   
     public static Alumno datosRegistrar(int idal) {
         String codigoAlumno=comprobarCodigo();
         System.out.println("Introduce el nombre del alumno");

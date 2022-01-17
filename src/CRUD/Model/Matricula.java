@@ -8,15 +8,18 @@ package CRUD.Model;
  *
  * @author usuario
  */
-public class ProfesorAlumnoAsignatura {
+public class Matricula {
 
+    
+    private String dni;
     private int idal;
     private int idas;
 
-    public ProfesorAlumnoAsignatura() {
+    public Matricula() {
     }
 
-    public ProfesorAlumnoAsignatura(int idal, int idas) {
+    public Matricula(String dni, int idal, int idas) {
+        this.dni=dni;
         this.idal = idal;
         this.idas = idas;
     }
@@ -39,7 +42,15 @@ public class ProfesorAlumnoAsignatura {
 
     @Override
     public String toString() {
-        return "Idas: " + idas + " \tIdal: " + idal;
+        return "Dni profesor: "+getDni() +"\tdas: " + idas + " \tIdal: " + idal;
+    }
+
+    public String getDni() {
+        return dni;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
     }
 
 }
