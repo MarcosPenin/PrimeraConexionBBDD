@@ -12,6 +12,7 @@ import CRUD.Model.Matricula;
 import CRUD.Model.Profesor;
 import excepciones.AlumNoExisteException;
 import excepciones.AsigNoExisteException;
+import excepciones.MatriculaNoExisteException;
 import excepciones.MatriculaRepetidaException;
 import excepciones.ProfNoExisteException;
 import java.util.Scanner;
@@ -26,8 +27,9 @@ import utilidades.ControlData;
 public class MatriculaDatos {
 
     static Scanner sc = new Scanner(System.in);
+    MatriculaDao dao = new MatriculaDao();
 
-    public static Matricula datosRegistrar() {
+    public static Matricula datosRegistrar() throws ProfNoExisteException, AlumNoExisteException, AsigNoExisteException, MatriculaRepetidaException {
         Matricula matricula = null;
         try {
             System.out.println("Introduce el dni del profesor");
@@ -44,40 +46,54 @@ public class MatriculaDatos {
             MatriculaDao.comprobarCoherencia(matricula);
 
         } catch (ProfNoExisteException ex) {
-            System.out.println(ex.getMessage());
+            throw new ProfNoExisteException();
         } catch (AlumNoExisteException ex) {
-            System.out.println(ex.getMessage());
+            throw new AlumNoExisteException();
         } catch (AsigNoExisteException ex) {
-            System.out.println(ex.getMessage());
+            throw new AsigNoExisteException();
         } catch (MatriculaRepetidaException ex) {
-            System.out.println(ex.getMessage());
+            throw new MatriculaRepetidaException();
         }
         return matricula;
     }
 
-    public static Matricula datosActualizar() {
-
+    public static Matricula datosActualizar() throws MatriculaNoExisteException, ProfNoExisteException {
         Matricula matricula = null;
 
-        System.out.println("Introduce el idal del alumno");
-        int idal = ControlData.lerInt(sc);
-        System.out.println("Introduce el idas de la asignatura");
-        int idas = ControlData.lerInt(sc);
-
-        MatriculaDao md = new MatriculaDao();
-        if (md.buscar(idal, idas) != null) {
+        try {
+            matricula = datosBuscar();
             System.out.println("Introduce el dni del nuevo profesor");
             String dni = ControlData.lerString(sc);
-            try {
-                MatriculaDao.comprobarDni(dni);
-                matricula = new Matricula(dni, idal, idas);
-            } catch (ProfNoExisteException ex) {
-                ex.getMessage();
-            }
+            MatriculaDao.comprobarDni(dni);
+            matricula.setDni(dni);
+        } catch (ProfNoExisteException ex) {
+            throw new ProfNoExisteException();
+        } catch (MatriculaNoExisteException e) {
+            throw new MatriculaNoExisteException();
+        }
 
+        return matricula;
+    }
+
+   
+    
+    
+    public static Matricula datosBuscar() throws MatriculaNoExisteException {
+        Matricula matricula = null;
+        System.out.println("Introduce el idal del alumno");
+        int idal = ControlData.lerInt(sc);
+        System.out.println("Introduce el idas de la asignatura ");
+        int idas = ControlData.lerInt(sc);
+        MatriculaDao dao = new MatriculaDao();
+        if (dao.buscar(idal, idas) != null) {
+            matricula = dao.buscar(idal, idas);
+
+        } else {
+            throw new MatriculaNoExisteException();
         }
 
         return matricula;
 
     }
+
 }

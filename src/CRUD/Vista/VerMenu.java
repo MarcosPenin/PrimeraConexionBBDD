@@ -122,7 +122,7 @@ public class VerMenu {
                     AsignaturaController.actualizar();
                     break;
                 case 4:
-                    MatriculaController.eliminar();
+                    MatriculaController.actualizar();
                     break;
                 case 5:
                     NotaController.actualizar();
@@ -171,6 +171,7 @@ public class VerMenu {
                     break;
                 case 4:
                     MatriculaController.obtener();
+                    break;
                 case 5:
                     NotaController.obtener();
                     break;

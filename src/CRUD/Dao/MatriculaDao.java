@@ -134,10 +134,8 @@ public class MatriculaDao implements IMatriculaDao{
     }
 
     public static void comprobarIdas(int idas) throws AsigNoExisteException {
-        System.out.println("Introduce el idas de la asignatura");
-        int idal = ControlData.lerInt(sc);
         AlumnoDao ad = new AlumnoDao();
-        if ((ad.buscar(idal)) == null) {
+        if ((ad.buscar(idas)) == null) {
            throw new AsigNoExisteException();
         } 
     }

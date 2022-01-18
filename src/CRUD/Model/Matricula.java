@@ -42,7 +42,7 @@ public class Matricula {
 
     @Override
     public String toString() {
-        return "Dni profesor: "+getDni() +"\tdas: " + idas + " \tIdal: " + idal;
+        return "Dni profesor: "+getDni() +"\tIdas: " + idas + " \tIdal: " + idal;
     }
 
     public String getDni() {

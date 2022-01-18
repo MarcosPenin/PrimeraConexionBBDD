@@ -4,13 +4,22 @@
  */
 package CRUD.Controller;
 
+import CRUD.Dao.NotaDao;
 import CRUD.Dao.ProfesorDao;
+import CRUD.Model.Nota;
 import CRUD.Model.Profesor;
+import CRUD.Vista.NotaDatos;
+import CRUD.Vista.NotaVista;
 import CRUD.Vista.ProfesorDatos;
 import CRUD.Vista.ProfesorVista;
+import excepciones.MatriculaNoExisteException;
+import excepciones.NotaNoExisteException;
+import excepciones.NotaRepetidaException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -19,41 +28,60 @@ import java.util.Scanner;
 public class NotaController {
 
     static Scanner sc = new Scanner(System.in);
-    static ProfesorVista vista = new ProfesorVista();
+    static NotaDao dao = new NotaDao();
+    static NotaVista vista = new NotaVista();
 
     public static void registrar() {
-        Profesor profesor = ProfesorDatos.datosRegistrar();
-        ProfesorDao dao = new ProfesorDao();
-        dao.registrar(profesor);
+        try {
+            Nota nota = NotaDatos.datosRegistrar();
+            dao.registrar(nota);
+        } catch (MatriculaNoExisteException ex) {
+            System.out.println(ex.getMessage());
+        } catch (NotaRepetidaException ex) {
+            System.out.println(ex.getMessage());
+        }
+
     }
 
     public static void buscar() {
-        String dni = ProfesorDatos.datosDni();
-        ProfesorDao dao = new ProfesorDao();
-        Profesor x = dao.buscar(dni);    
-        vista.verProfesor(x);
-
+        try {
+            Nota nota = NotaDatos.datosBuscar();
+            vista.verNota(nota);
+        } catch (NotaNoExisteException ex) {
+            System.out.println(ex.getMessage());
+        } catch (MatriculaNoExisteException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
     public static void actualizar() {
-        String dni = ProfesorDatos.datosDni();
-        Profesor profesor = ProfesorDatos.datosActualizar(dni);
-        ProfesorDao dao = new ProfesorDao();
-        dao.actualizar(profesor);
 
+        try {
+            Nota nota = NotaDatos.datosActualizar();
+        } catch (NotaNoExisteException ex) {
+            System.out.println(ex.getMessage());
+        } catch (MatriculaNoExisteException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
     public static void eliminar() {
-        String dni = ProfesorDatos.datosDni();
-        ProfesorDao dao = new ProfesorDao();
-        dao.eliminar(dni);
+
+        Nota nota;
+        try {
+            nota = NotaDatos.datosBuscar();
+            dao.eliminar(nota);
+        } catch (NotaNoExisteException ex) {
+            System.out.println(ex.getMessage());
+        } catch (MatriculaNoExisteException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
-    public static void obtener() {
-        List<Profesor> profesores = new ArrayList<Profesor>();
-        ProfesorDao dao = new ProfesorDao();
-        profesores = dao.obtener();      
-        vista.verProfesores(profesores);
+public static void obtener() {
+        List<Nota> notas = new ArrayList<>();
+        notas = dao.obtener();      
+        vista.verNotas(notas);
     }
  
 }
