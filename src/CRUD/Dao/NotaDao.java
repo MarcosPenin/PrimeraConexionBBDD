@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package CRUD.Dao;
 
 import static CRUD.Dao.MatriculaDao.stm;
@@ -10,11 +7,9 @@ import CRUD.Model.Matricula;
 import CRUD.Model.Nota;
 import CRUD.Vista.Mensajes;
 import excepciones.NotaRepetidaException;
-import excepciones.ProfNoExisteException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -37,7 +32,7 @@ public class NotaDao implements INotaDao {
         } catch (SQLIntegrityConstraintViolationException e) {
             System.out.println("No se puede guardar esa nota");
         } catch (SQLException e) {
-            System.out.println("Error: Clase ClienteDaoImpl, método registrar" + e);
+            System.out.println("Error: Clase NotaDao, método registrar" + e);
         }
     }
 
@@ -53,7 +48,7 @@ public class NotaDao implements INotaDao {
                 stm.execute(sql);
                 Mensajes.exito();
             } catch (SQLException e) {
-                System.out.println("Error: Clase ClienteDaoImple, método actualizar");
+                System.out.println("Error: Clase NotaDao, método actualizar");
             }
         }
     
@@ -72,16 +67,15 @@ public class NotaDao implements INotaDao {
             stm.execute(sql);
             Mensajes.exito();
         } catch (SQLException e) {
-            System.out.println("Error: Clase ClienteDaoImple, método eliminar");
+            System.out.println("Error: Clase NotaDao, método eliminar");
             e.printStackTrace();
         }
     }
 
     
     
- 
-    public List<Nota> obtener() {
 
+    public List<Nota> obtener() {        
         ResultSet rs = null;
         String sql = "SELECT * FROM notas";
         List<Nota> notas = new ArrayList<>();
@@ -97,7 +91,7 @@ public class NotaDao implements INotaDao {
             }
             rs.close();
         } catch (SQLException e) {
-            System.out.println("Error: Clase ClienteDaoImple, método obtener");
+            System.out.println("Error: Clase NotaDao, método obtener");
         }
 
         return notas;
@@ -119,8 +113,12 @@ public class NotaDao implements INotaDao {
             throw new NotaRepetidaException();
         }
     }
+    }
+                
+        
+        
+      
+       
+       
+    
 
-    
-    
-    
-}

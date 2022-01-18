@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package CRUD.Vista;
 
 import CRUD.Controller.AlumnoController;
@@ -51,8 +48,11 @@ public class VerMenu {
                 case 5:
                     menuImprimir();
                     break;
+                case 6:
+                    menuConsultas();
+                    break;
             }
-        } while (opMenu != 6);
+        } while (opMenu != 7);
     }
 
     public static void menuInsertar() {
@@ -177,6 +177,27 @@ public class VerMenu {
                     break;
             }
     }
+    
+    public static void menuConsultas(){
+         Menu menuConsultas = new Menu(consultas());
+        byte op2;
+        menuConsultas.printMenu();
+         op2 = ControlData.lerByte(sc);
+            switch (op2) {
+                case 1:
+                    ProfesorController.verAsignaturas();
+                    break;
+                case 2:
+                    AlumnoController.verNotas();
+                    break;
+                case 3:
+                    AsignaturaController.verProfesores();
+                    break;
+            }
+    
+    }
+    
+    
 
     static ArrayList<String> opciones() {
         ArrayList<String> opciones = new ArrayList<String>();
@@ -185,6 +206,7 @@ public class VerMenu {
         opciones.add("Modificar filas");
         opciones.add("Buscar");
         opciones.add("Imprimir tabla");
+        opciones.add("Otras consultas");
         opciones.add("Salir");
         return opciones;
     }
@@ -196,6 +218,15 @@ public class VerMenu {
         opciones.add("Asignaturas");
         opciones.add("Matrículas");
         opciones.add("Notas");
+        opciones.add("Volver");
+        return opciones;
+    }
+    
+        static ArrayList<String> consultas() {
+        ArrayList<String> opciones = new ArrayList<String>();
+        opciones.add("Ver las asignaturas de un profesor");
+        opciones.add("Ver las notas de un alumno");
+        opciones.add("Ver los profesores de una asignatura");
         opciones.add("Volver");
         return opciones;
     }

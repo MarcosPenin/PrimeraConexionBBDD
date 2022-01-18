@@ -1,25 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package CRUD.Controller;
 
 import CRUD.Dao.NotaDao;
-import CRUD.Dao.ProfesorDao;
 import CRUD.Model.Nota;
-import CRUD.Model.Profesor;
 import CRUD.Vista.NotaDatos;
 import CRUD.Vista.NotaVista;
-import CRUD.Vista.ProfesorDatos;
-import CRUD.Vista.ProfesorVista;
 import excepciones.MatriculaNoExisteException;
 import excepciones.NotaNoExisteException;
 import excepciones.NotaRepetidaException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -35,9 +26,7 @@ public class NotaController {
         try {
             Nota nota = NotaDatos.datosRegistrar();
             dao.registrar(nota);
-        } catch (MatriculaNoExisteException ex) {
-            System.out.println(ex.getMessage());
-        } catch (NotaRepetidaException ex) {
+        } catch (MatriculaNoExisteException | NotaRepetidaException ex) {
             System.out.println(ex.getMessage());
         }
 
@@ -47,9 +36,7 @@ public class NotaController {
         try {
             Nota nota = NotaDatos.datosBuscar();
             vista.verNota(nota);
-        } catch (NotaNoExisteException ex) {
-            System.out.println(ex.getMessage());
-        } catch (MatriculaNoExisteException ex) {
+        } catch (NotaNoExisteException | MatriculaNoExisteException ex) {
             System.out.println(ex.getMessage());
         }
     }
@@ -58,9 +45,7 @@ public class NotaController {
 
         try {
             Nota nota = NotaDatos.datosActualizar();
-        } catch (NotaNoExisteException ex) {
-            System.out.println(ex.getMessage());
-        } catch (MatriculaNoExisteException ex) {
+        } catch (NotaNoExisteException | MatriculaNoExisteException ex) {
             System.out.println(ex.getMessage());
         }
     }
@@ -71,9 +56,7 @@ public class NotaController {
         try {
             nota = NotaDatos.datosBuscar();
             dao.eliminar(nota);
-        } catch (NotaNoExisteException ex) {
-            System.out.println(ex.getMessage());
-        } catch (MatriculaNoExisteException ex) {
+        } catch (NotaNoExisteException | MatriculaNoExisteException ex) {
             System.out.println(ex.getMessage());
         }
     }

@@ -20,8 +20,7 @@ public class Mensajes {
     
          public static void asignaturaNoExiste(){
         System.out.println("Lo siento, no existe ninguna asignatura con ese idas");
-    }
-    
+    } 
       
           public static void profesorNoExiste(){
         System.out.println("Lo siento, no existe ningún profeosr con ese dni");

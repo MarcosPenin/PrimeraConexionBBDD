@@ -4,22 +4,14 @@
  */
 package CRUD.Vista;
 
-import CRUD.Dao.MatriculaDao;
 import CRUD.Dao.NotaDao;
 import CRUD.Model.Matricula;
 import CRUD.Model.Nota;
-import static CRUD.Vista.MatriculaDatos.datosBuscar;
 import static CRUD.Vista.MatriculaDatos.sc;
-import excepciones.AlumNoExisteException;
-import excepciones.AsigNoExisteException;
 import excepciones.MatriculaNoExisteException;
-import excepciones.MatriculaRepetidaException;
 import excepciones.NotaNoExisteException;
 import excepciones.NotaRepetidaException;
-import excepciones.ProfNoExisteException;
-import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
+import java.sql.Date;
 import utilidades.ControlData;
 
 /**
@@ -39,9 +31,9 @@ public class NotaDatos {
             System.out.println("Introduce la nota");
             float nta = ControlData.lerFloat(sc);
             System.out.println("Introduce el año");
-            int ano = ControlData.lerInt(sc);
+            int ano = ControlData.lerInt(sc)-1900;
             System.out.println("Introduce el mes");
-            int mes = ControlData.lerInt(sc);
+            int mes = ControlData.lerInt(sc)-1;
             System.out.println("Introduce el día");
             int dia = ControlData.lerInt(sc);
             Date fecha = new Date(ano, mes, dia);

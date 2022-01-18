@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package CRUD.Model;
 
 /**
@@ -10,7 +6,6 @@ package CRUD.Model;
  */
 public class Matricula {
 
-    
     private String dni;
     private int idal;
     private int idas;
@@ -19,7 +14,7 @@ public class Matricula {
     }
 
     public Matricula(String dni, int idal, int idas) {
-        this.dni=dni;
+        this.dni = dni;
         this.idal = idal;
         this.idas = idas;
     }
@@ -42,7 +37,7 @@ public class Matricula {
 
     @Override
     public String toString() {
-        return "Dni profesor: "+getDni() +"\tIdas: " + idas + " \tIdal: " + idal;
+        return "Dni profesor: " + getDni() + "\tIdas: " + idas + " \tIdal: " + idal;
     }
 
     public String getDni() {

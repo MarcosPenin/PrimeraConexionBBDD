@@ -4,19 +4,13 @@
  */
 package CRUD.Controller;
 
-import static CRUD.Controller.AlumnoController.vista;
-import CRUD.Dao.AlumnoDao;
+
 import CRUD.Dao.AsignaturaDao;
-import CRUD.Dao.ProfesorDao;
-import CRUD.Model.Alumno;
+
 import CRUD.Model.Asignatura;
-import CRUD.Model.Profesor;
-import CRUD.Vista.AlumnoDatos;
 import CRUD.Vista.AsignaturaDatos;
 import CRUD.Vista.AsignaturaVista;
 import CRUD.Vista.Mensajes;
-import CRUD.Vista.ProfesorDatos;
-import CRUD.Vista.ProfesorVista;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -63,10 +57,18 @@ public class AsignaturaController {
         }
     }
 
-    public static void obtener() {
-        List<Asignatura> asignaturas = new ArrayList<Asignatura>();
-        AsignaturaDao dao = new AsignaturaDao();
-        asignaturas = dao.obtener();
+    public static void obtener() {       
+        List<Asignatura> asignaturas =  dao.obtener();
         vista.verAsignaturas(asignaturas);
     }
+    
+    public static void verProfesores(){
+        int idas=AsignaturaDatos.datosIdas();      
+        dao.verProfesores(idas); 
+    }
+    
+    
+    
+    
+    
 }

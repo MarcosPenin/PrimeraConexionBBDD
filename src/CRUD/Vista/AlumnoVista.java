@@ -1,20 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package CRUD.Vista;
 
 import CRUD.Model.Alumno;
-import CRUD.Model.Profesor;
 import java.util.List;
 
 /**
  *
  * @author usuario
  */
-public class AlumnoVista {
-    
-    
+public class AlumnoVista {  
     
     public void verAlumnos(List<Alumno> alumnos) {
         for (Alumno x : alumnos) {
@@ -31,7 +25,5 @@ public class AlumnoVista {
         }
 
     }
-    
-    
-    
+  
 }

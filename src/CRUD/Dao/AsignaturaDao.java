@@ -6,26 +6,29 @@ package CRUD.Dao;
 
 import CRUD.Connection.Conexion;
 import CRUD.IDao.IAsignaturaDao;
-import CRUD.Model.Alumno;
 import CRUD.Model.Asignatura;
-import CRUD.Vista.AlumnoVista;
+import CRUD.Model.Matricula;
+import CRUD.Model.Profesor;
 import CRUD.Vista.AsignaturaVista;
 import CRUD.Vista.Mensajes;
+import CRUD.Vista.ProfesorVista;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
  * @author usuario
  */
 public class AsignaturaDao implements IAsignaturaDao {
-    
-      static Statement stm = Conexion.sentencia;
+
+    static Statement stm = Conexion.sentencia;
     static Connection con = Conexion.conexion;
     static AsignaturaVista vista = new AsignaturaVista();
 
@@ -45,14 +48,14 @@ public class AsignaturaDao implements IAsignaturaDao {
     @Override
     public void registrar(Asignatura asignatura) {
         String sql = "INSERT INTO asignaturas (idas,codigoAsignatura,nombreCiclo) values ('" + asignatura.getIdas()
-                + "','" + asignatura.getCodigoAsignatura()+ "','" + asignatura.getCodigoAsignatura()+ "')";
+                + "','" + asignatura.getCodigoAsignatura() + "','" + asignatura.getCodigoAsignatura() + "')";
         try {
             stm.execute(sql);
             Mensajes.exito();
         } catch (SQLIntegrityConstraintViolationException e) {
             System.out.println("No se puede guardar esa asignatura");
         } catch (SQLException e) {
-            System.out.println("Error: Clase ClienteDaoImpl, método registrar" + e);
+            System.out.println("Error: Clase AsignaturaDao, método registrar" + e);
         }
     }
 
@@ -73,7 +76,7 @@ public class AsignaturaDao implements IAsignaturaDao {
             }
             rs.close();
         } catch (SQLException e) {
-            System.out.println("Error: Clase ClienteDaoImple, método obtener");
+            System.out.println("Error: Clase AsignaturaDao, método obtener");
         }
 
         return asignaturas;
@@ -94,14 +97,14 @@ public class AsignaturaDao implements IAsignaturaDao {
     @Override
     public void actualizar(Asignatura asignatura) {
 
-        String sql = "UPDATE ASIGNATURAS SET codigoAsignatura='" + asignatura.getCodigoAsignatura()+ "', nombreCiclo='"
-                + asignatura.getNombreCiclo()+ "'" + " WHERE idas='" + asignatura.getIdas() + "'";
+        String sql = "UPDATE ASIGNATURAS SET codigoAsignatura='" + asignatura.getCodigoAsignatura() + "', nombreCiclo='"
+                + asignatura.getNombreCiclo() + "'" + " WHERE idas='" + asignatura.getIdas() + "'";
 
         try {
             stm.execute(sql);
             Mensajes.exito();
         } catch (SQLException e) {
-            System.out.println("Error: Clase ClienteDaoImple, método actualizar");
+            System.out.println("Error: Clase AsignaturaDao, método actualizar");
         }
     }
 
@@ -112,12 +115,39 @@ public class AsignaturaDao implements IAsignaturaDao {
             stm.execute(sql);
             Mensajes.exito();
         } catch (SQLException e) {
-            System.out.println("Error: Clase ClienteDaoImple, método eliminar");
+            System.out.println("Error: Clase AsignaturaDao, método eliminar");
             e.printStackTrace();
         }
     }
-    
-    
-    
-    
+
+    public void verProfesores(int idas) {
+        boolean flag=false;
+        MatriculaDao md = new MatriculaDao();
+        ProfesorDao pd = new ProfesorDao();
+        ProfesorVista pv = new ProfesorVista();
+        List<Matricula> matriculas = md.obtener();
+        List<Profesor> profesores = pd.obtener();
+
+        Set<String> listaDni = new HashSet<>();
+
+        for (Matricula x : matriculas) {
+            if (x.getIdas() == idas) {
+                listaDni.add(x.getDni());
+            }
+        }
+        for (String y : listaDni) {
+            for (Profesor z : profesores) {
+                if (y.equalsIgnoreCase(z.getDni())) {
+                    pv.verProfesor(z);
+                    flag=true;
+                }
+            }
+
+        }
+          if(!flag){
+            System.out.println("Esa asignatura no tiene registrada ningún profesor");
+        }
+        
+    }
+
 }

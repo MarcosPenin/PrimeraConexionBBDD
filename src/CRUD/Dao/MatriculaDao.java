@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package CRUD.Dao;
 
 import CRUD.Connection.Conexion;
@@ -13,6 +9,7 @@ import CRUD.Vista.Mensajes;
 import excepciones.AlumNoExisteException;
 import excepciones.AsigNoExisteException;
 import excepciones.MatriculaRepetidaException;
+import excepciones.OtroProfesorException;
 import excepciones.ProfNoExisteException;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -22,7 +19,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import utilidades.ControlData;
 
 /**
  *
@@ -46,12 +42,12 @@ public class MatriculaDao implements IMatriculaDao{
         } catch (SQLIntegrityConstraintViolationException e) {
             System.out.println("No se puede guardar esa matrícula");
         } catch (SQLException e) {
-            System.out.println("Error: Clase ClienteDaoImpl, método registrar" + e);
+            System.out.println("Error: Clase MatriculaDao, método registrar" + e);
         }
     }
 
     @Override
-    public List<Matricula> obtener() {
+    public  List<Matricula> obtener() {
 
         ResultSet rs = null;
         String sql = "SELECT * FROM profesoresalumnosasignaturas";
@@ -67,7 +63,7 @@ public class MatriculaDao implements IMatriculaDao{
             }
             rs.close();
         } catch (SQLException e) {
-            System.out.println("Error: Clase ClienteDaoImple, método obtener");
+            System.out.println("Error: Clase MatriculaDao, método obtener");
         }
 
         return matriculas;
@@ -94,7 +90,7 @@ public class MatriculaDao implements IMatriculaDao{
                 stm.execute(sql);
                 Mensajes.exito();
             } catch (SQLException e) {
-                System.out.println("Error: Clase ClienteDaoImple, método actualizar");
+                System.out.println("Error: Clase MatriculaDao, método actualizar");
             }
         }
     
@@ -112,7 +108,7 @@ public class MatriculaDao implements IMatriculaDao{
             stm.execute(sql);
             Mensajes.exito();
         } catch (SQLException e) {
-            System.out.println("Error: Clase ClienteDaoImple, método eliminar");
+            System.out.println("Error: Clase MatriculaDao, método eliminar");
             e.printStackTrace();
         }
     }
@@ -145,7 +141,17 @@ public class MatriculaDao implements IMatriculaDao{
         if (md.buscar(matricula.getIdal(), matricula.getIdas()) != null) {
             throw new MatriculaRepetidaException();
         }
-
+    }
+    
+    public void comprobarProfesor(String dni,int idas) throws OtroProfesorException{
+        List<Matricula> matriculas=obtener();
+        for(Matricula x:matriculas){
+            if(x.getIdas()==idas&&x.getDni()!=dni){
+                throw new OtroProfesorException();
+            }
+        }
+        
+        
     }
     
     

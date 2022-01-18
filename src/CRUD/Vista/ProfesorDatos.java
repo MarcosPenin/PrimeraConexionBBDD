@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package CRUD.Vista;
 
 import CRUD.Model.Profesor;
@@ -33,8 +30,7 @@ public class ProfesorDatos {
         return dni;
     }
     
-    
-    
+       
     public static Profesor datosActualizar(String dni){
         System.out.println("Introduce el nuevo nombre del profesor");
         String nombre = ControlData.lerString(sc);

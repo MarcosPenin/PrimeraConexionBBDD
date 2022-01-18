@@ -1,12 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package CRUD.Vista;
 
 import CRUD.Model.Alumno;
-import CRUD.Model.Asignatura;
-import CRUD.Model.Profesor;
 import java.util.Scanner;
 import utilidades.ControlData;
 

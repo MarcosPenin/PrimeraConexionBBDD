@@ -19,7 +19,7 @@ public class Conexion {
 
     public static Conexion getInStance() {
 
-        if (instance == null) {
+        if (instance == null) {          
             instance = new Conexion();
         }
         return instance;

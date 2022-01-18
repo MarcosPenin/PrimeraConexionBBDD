@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package CRUD.Model;
 
 /**
@@ -9,21 +5,22 @@ package CRUD.Model;
  * @author usuario
  */
 public class Alumno {
-    
-       private int idal;
+
+    private int idal;
     private String codigoAlumno;
     private String nombre;
-   
-   public Alumno(){
-       
-   }
-   
-   public Alumno(int idal, String codigoAlumno, String nombre){
-       this.idal=idal;
-       this.codigoAlumno=codigoAlumno;
-       this.nombre=nombre;
 
-}
+    public Alumno() {
+
+    }
+
+    public Alumno(int idal, String codigoAlumno, String nombre) {
+        this.idal = idal;
+        this.codigoAlumno = codigoAlumno;
+        this.nombre = nombre;
+
+    }
+
     public int getIdal() {
         return idal;
     }
@@ -47,17 +44,10 @@ public class Alumno {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
- 
-    
-    @Override
-    public String toString(){
-        return "Idal: "+ idal + " \tCódigo alumno: " + codigoAlumno + "\tNombre: " + nombre;
-    }
-    
-    
-    
-    
-    
-    
-}
 
+    @Override
+    public String toString() {
+        return "Idal: " + idal + " \tCódigo alumno: " + codigoAlumno + "\tNombre: " + nombre;
+    }
+
+}

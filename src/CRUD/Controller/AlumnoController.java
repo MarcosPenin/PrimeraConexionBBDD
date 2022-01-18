@@ -1,18 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package CRUD.Controller;
 
+
 import CRUD.Dao.AlumnoDao;
-import CRUD.Dao.ProfesorDao;
 import CRUD.Model.Alumno;
-import CRUD.Model.Profesor;
 import CRUD.Vista.AlumnoDatos;
 import CRUD.Vista.AlumnoVista;
 import CRUD.Vista.Mensajes;
-import CRUD.Vista.ProfesorDatos;
-import CRUD.Vista.ProfesorVista;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -55,8 +49,7 @@ public class AlumnoController {
                dao.eliminar(idal);        
         }else{
             Mensajes.alumnoNoExiste();
-        }
-           
+        }         
     }
 
     public static void obtener() {
@@ -64,4 +57,13 @@ public class AlumnoController {
         alumnos = dao.obtener();
         vista.verAlumnos(alumnos);
     }
+    
+    public static void verNotas(){
+     int idal=AlumnoDatos.datosIdal();
+      dao.verNotas(idal);
+    
+    
+    }
+    
+    
 }

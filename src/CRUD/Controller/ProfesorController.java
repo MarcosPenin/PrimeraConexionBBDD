@@ -1,10 +1,7 @@
 package CRUD.Controller;
 
-import static CRUD.Controller.AsignaturaController.dao;
 import CRUD.Dao.ProfesorDao;
-import CRUD.Model.Asignatura;
 import CRUD.Model.Profesor;
-import CRUD.Vista.AsignaturaDatos;
 import CRUD.Vista.Mensajes;
 import CRUD.Vista.ProfesorDatos;
 import CRUD.Vista.ProfesorVista;
@@ -20,7 +17,7 @@ public class ProfesorController {
 
     static Scanner sc = new Scanner(System.in);
     static ProfesorVista vista = new ProfesorVista();
-    static ProfesorDao dao=new ProfesorDao();
+    static ProfesorDao dao = new ProfesorDao();
 
     public static void registrar() {
         Profesor profesor = ProfesorDatos.datosRegistrar();
@@ -29,32 +26,41 @@ public class ProfesorController {
 
     public static void buscar() {
         String dni = ProfesorDatos.datosDni();
-        Profesor x = dao.buscar(dni);    
+        Profesor x = dao.buscar(dni);
         vista.verProfesor(x);
     }
 
     public static void actualizar() {
         String dni = ProfesorDatos.datosDni();
-        if(dao.buscar(dni)!=null){
-             Profesor profesor = ProfesorDatos.datosActualizar(dni);
-        dao.actualizar(profesor);
-        }else{
+        if (dao.buscar(dni) != null) {
+            Profesor profesor = ProfesorDatos.datosActualizar(dni);
+            dao.actualizar(profesor);
+        } else {
             Mensajes.profesorNoExiste();
         }
     }
 
     public static void eliminar() {
         String dni = ProfesorDatos.datosDni();
-         if(dao.buscar(dni)!=null){     
-        dao.eliminar(dni);}else{
-             Mensajes.profesorNoExiste();
-         }
+        if (dao.buscar(dni) != null) {
+            dao.eliminar(dni);
+        } else {
+            Mensajes.profesorNoExiste();
+        }
     }
-    
 
     public static void obtener() {
-        List<Profesor> profesores = new ArrayList<Profesor>();
-        profesores = dao.obtener();      
+        List<Profesor> profesores = new ArrayList<>();
+        profesores = dao.obtener();
         vista.verProfesores(profesores);
     }
+
+    public static void verAsignaturas() {
+            String dni = ProfesorDatos.datosDni();
+            dao.verAsignaturas(dni);
+        
+        
+    }
+
+
 }

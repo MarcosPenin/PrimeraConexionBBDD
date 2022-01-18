@@ -1,19 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package CRUD.Dao;
 
 import CRUD.Connection.Conexion;
-import static CRUD.Dao.ProfesorDao.stm;
 import CRUD.IDao.IAlumnoDao;
-import CRUD.IDao.IProfesorDao;
 import CRUD.Model.Alumno;
-import CRUD.Model.Profesor;
+import CRUD.Model.Nota;
 import CRUD.Vista.AlumnoVista;
 import CRUD.Vista.Mensajes;
-import CRUD.Vista.ProfesorVista;
-import excepciones.DniInvalido;
+import CRUD.Vista.NotaVista;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,7 +15,6 @@ import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import utilidades.ControlData;
 
 /**
  *
@@ -56,7 +49,7 @@ public class AlumnoDao implements IAlumnoDao {
         } catch (SQLIntegrityConstraintViolationException e) {
             System.out.println("No se puede guardar ese alumno");
         } catch (SQLException e) {
-            System.out.println("Error: Clase ClienteDaoImpl, método registrar" + e);
+            System.out.println("Error: Clase AlumnoDao, método registrar" + e);
         }
     }
 
@@ -77,7 +70,7 @@ public class AlumnoDao implements IAlumnoDao {
             }
             rs.close();
         } catch (SQLException e) {
-            System.out.println("Error: Clase ClienteDaoImple, método obtener");
+            System.out.println("Error: Clase AlumnoDao, método obtener");
         }
 
         return alumnos;
@@ -105,7 +98,7 @@ public class AlumnoDao implements IAlumnoDao {
                 stm.execute(sql);
                 Mensajes.exito();
             } catch (SQLException e) {
-                System.out.println("Error: Clase ClienteDaoImple, método actualizar");
+                System.out.println("Error: Clase AlumnoDao, método actualizar");
             }
         }
     
@@ -120,9 +113,27 @@ public class AlumnoDao implements IAlumnoDao {
             stm.execute(sql);
             Mensajes.exito();
         } catch (SQLException e) {
-            System.out.println("Error: Clase ClienteDaoImple, método eliminar");
+            System.out.println("Error: Clase AlumnoDao, método eliminar");
             e.printStackTrace();
         }
     }
+    
+    public void verNotas(int idal){
+        boolean flag=false;
+        NotaDao nd=new NotaDao();
+        NotaVista vd= new NotaVista();
+        List<Nota> notas=nd.obtener();     
+        for(Nota x:notas){
+            if(x.getIdal()==idal){
+                vd.verNota(x);
+                flag=true;
+            }
+        } 
+         if(!flag){
+            System.out.println("Ese alumno no tiene registrada ninguna nota");
+        }
+        
+    }
+    
 
 }

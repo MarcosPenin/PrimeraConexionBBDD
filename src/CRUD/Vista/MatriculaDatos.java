@@ -5,19 +5,15 @@
  */
 package CRUD.Vista;
 
-import CRUD.Dao.AlumnoDao;
 import CRUD.Dao.MatriculaDao;
-import CRUD.Dao.ProfesorDao;
 import CRUD.Model.Matricula;
-import CRUD.Model.Profesor;
 import excepciones.AlumNoExisteException;
 import excepciones.AsigNoExisteException;
 import excepciones.MatriculaNoExisteException;
 import excepciones.MatriculaRepetidaException;
+import excepciones.OtroProfesorException;
 import excepciones.ProfNoExisteException;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import utilidades.ControlData;
 
 /**
@@ -29,7 +25,7 @@ public class MatriculaDatos {
     static Scanner sc = new Scanner(System.in);
     MatriculaDao dao = new MatriculaDao();
 
-    public static Matricula datosRegistrar() throws ProfNoExisteException, AlumNoExisteException, AsigNoExisteException, MatriculaRepetidaException {
+    public Matricula datosRegistrar() throws ProfNoExisteException, AlumNoExisteException, AsigNoExisteException, MatriculaRepetidaException,OtroProfesorException {
         Matricula matricula = null;
         try {
             System.out.println("Introduce el dni del profesor");
@@ -41,8 +37,9 @@ public class MatriculaDatos {
             System.out.println("Introduce el idas de la asignatura");
             int idas = ControlData.lerInt(sc);
             MatriculaDao.comprobarIdas(idas);
-
+            dao.comprobarProfesor(dni, idas);
             matricula = new Matricula(dni, idal, idas);
+    
             MatriculaDao.comprobarCoherencia(matricula);
 
         } catch (ProfNoExisteException ex) {
@@ -53,13 +50,16 @@ public class MatriculaDatos {
             throw new AsigNoExisteException();
         } catch (MatriculaRepetidaException ex) {
             throw new MatriculaRepetidaException();
+        } catch(OtroProfesorException ex){
+            throw new OtroProfesorException();
         }
+        
+        
         return matricula;
     }
 
     public static Matricula datosActualizar() throws MatriculaNoExisteException, ProfNoExisteException {
         Matricula matricula = null;
-
         try {
             matricula = datosBuscar();
             System.out.println("Introduce el dni del nuevo profesor");
@@ -71,13 +71,10 @@ public class MatriculaDatos {
         } catch (MatriculaNoExisteException e) {
             throw new MatriculaNoExisteException();
         }
-
         return matricula;
     }
 
-   
-    
-    
+     
     public static Matricula datosBuscar() throws MatriculaNoExisteException {
         Matricula matricula = null;
         System.out.println("Introduce el idal del alumno");
