@@ -61,13 +61,14 @@ public class AsignaturaDao implements IAsignaturaDao {
 
     @Override
     public List<Asignatura> obtener() {
-
+boolean vacio=true;
         ResultSet rs = null;
         String sql = "SELECT * FROM ASIGNATURAS";
         List<Asignatura> asignaturas = new ArrayList<>();
         try {
             rs = stm.executeQuery(sql);
             while (rs.next()) {
+                vacio=false;
                 Asignatura x = new Asignatura();
                 x.setIdas(rs.getInt(1));
                 x.setCodigoAsignatura(rs.getString(2));
@@ -77,6 +78,9 @@ public class AsignaturaDao implements IAsignaturaDao {
             rs.close();
         } catch (SQLException e) {
             System.out.println("Error: Clase AsignaturaDao, método obtener");
+        }
+   if (vacio) {
+            System.out.println("No hay ninguna asignatura guardada");
         }
 
         return asignaturas;
@@ -145,7 +149,7 @@ public class AsignaturaDao implements IAsignaturaDao {
 
         }
           if(!flag){
-            System.out.println("Esa asignatura no tiene registrada ningún profesor");
+            System.out.println("No existen profesores asignados a una asignatura con ese idas");
         }
         
     }

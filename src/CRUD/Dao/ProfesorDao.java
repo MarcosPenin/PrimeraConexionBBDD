@@ -50,13 +50,14 @@ public class ProfesorDao implements IProfesorDao {
 
     @Override
     public List<Profesor> obtener() {
-
+boolean vacio=true;
         ResultSet rs = null;
         String sql = "SELECT * FROM PROFESORES";
         List<Profesor> profesores = new ArrayList<>();
         try {
             rs = stm.executeQuery(sql);
             while (rs.next()) {
+                vacio=false;
                 Profesor x = new Profesor();
                 x.setDni(rs.getString(1));
                 x.setNombre(rs.getString(2));
@@ -66,6 +67,9 @@ public class ProfesorDao implements IProfesorDao {
             rs.close();
         } catch (SQLException e) {
             System.out.println("Error: Clase ProfesorDao, método obtener");
+        }
+   if (vacio) {
+            System.out.println("No hay ningún profesor guardado");
         }
 
         return profesores;
@@ -135,7 +139,7 @@ public class ProfesorDao implements IProfesorDao {
             }
         }
         if(!flag){
-            System.out.println("Ese profesor no tiene registrada ninguna asignatura");
+           System.out.println("No existen asignaturas asignadas a un profesor con ese idal");
         }
     }
 

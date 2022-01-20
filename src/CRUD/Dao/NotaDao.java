@@ -76,12 +76,15 @@ public class NotaDao implements INotaDao {
     
 
     public List<Nota> obtener() {        
+       
+        
         ResultSet rs = null;
         String sql = "SELECT * FROM notas";
         List<Nota> notas = new ArrayList<>();
         try {
             rs = stm.executeQuery(sql);
             while (rs.next()) {
+              
                 Nota x = new Nota();
                 x.setIdal(rs.getInt(1));
                 x.setIdas(rs.getInt(2));
@@ -93,6 +96,7 @@ public class NotaDao implements INotaDao {
         } catch (SQLException e) {
             System.out.println("Error: Clase NotaDao, método obtener");
         }
+   
 
         return notas;
     }

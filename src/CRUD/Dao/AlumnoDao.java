@@ -1,4 +1,3 @@
-
 package CRUD.Dao;
 
 import CRUD.Connection.Conexion;
@@ -55,13 +54,14 @@ public class AlumnoDao implements IAlumnoDao {
 
     @Override
     public List<Alumno> obtener() {
-
+        boolean vacio = true;
         ResultSet rs = null;
         String sql = "SELECT * FROM ALUMNOS";
         List<Alumno> alumnos = new ArrayList<>();
         try {
             rs = stm.executeQuery(sql);
             while (rs.next()) {
+                vacio = false;
                 Alumno x = new Alumno();
                 x.setIdal(rs.getInt(1));
                 x.setCodigoAlumno(rs.getString(2));
@@ -71,6 +71,9 @@ public class AlumnoDao implements IAlumnoDao {
             rs.close();
         } catch (SQLException e) {
             System.out.println("Error: Clase AlumnoDao, método obtener");
+        }
+        if (vacio) {
+            System.out.println("No hay ningún alumno guardado");
         }
 
         return alumnos;
@@ -94,21 +97,19 @@ public class AlumnoDao implements IAlumnoDao {
         String sql = "UPDATE ALUMNOS SET codigoAlumno='" + alumno.getCodigoAlumno() + "', nombre='"
                 + alumno.getNombre() + "'" + " WHERE idal='" + alumno.getIdal() + "'";
 
-            try {
-                stm.execute(sql);
-                Mensajes.exito();
-            } catch (SQLException e) {
-                System.out.println("Error: Clase AlumnoDao, método actualizar");
-            }
+        try {
+            stm.execute(sql);
+            Mensajes.exito();
+        } catch (SQLException e) {
+            System.out.println("Error: Clase AlumnoDao, método actualizar");
         }
-    
+    }
 
     @Override
     public void eliminar(int idal
     ) {
         String sql = "DELETE FROM ALUMNOS WHERE idal='" + idal + "'";
 
-        
         try {
             stm.execute(sql);
             Mensajes.exito();
@@ -117,23 +118,22 @@ public class AlumnoDao implements IAlumnoDao {
             e.printStackTrace();
         }
     }
-    
-    public void verNotas(int idal){
-        boolean flag=false;
-        NotaDao nd=new NotaDao();
-        NotaVista vd= new NotaVista();
-        List<Nota> notas=nd.obtener();     
-        for(Nota x:notas){
-            if(x.getIdal()==idal){
+
+    public void verNotas(int idal) {
+        boolean flag = false;
+        NotaDao nd = new NotaDao();
+        NotaVista vd = new NotaVista();
+        List<Nota> notas = nd.obtener();
+        for (Nota x : notas) {
+            if (x.getIdal() == idal) {
                 vd.verNota(x);
-                flag=true;
+                flag = true;
             }
-        } 
-         if(!flag){
-            System.out.println("Ese alumno no tiene registrada ninguna nota");
         }
-        
+        if (!flag) {
+          System.out.println("No existen notas asignadas a un alumno con ese idal");
+        }
+
     }
-    
 
 }

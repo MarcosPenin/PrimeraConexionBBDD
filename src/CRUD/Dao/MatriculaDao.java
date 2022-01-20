@@ -31,7 +31,45 @@ public class MatriculaDao implements IMatriculaDao{
     static MatriculaVista vista = new MatriculaVista();
     static Scanner sc=new Scanner(System.in);
     
+     
+     public static void comprobarDni(String dni) throws ProfNoExisteException {
+        ProfesorDao pd = new ProfesorDao();
+        if ((pd.buscar(dni)) == null) {
+            throw new ProfNoExisteException();
+        } else {          
+        }
+    }
 
+    public static void comprobarIdal(int idal) throws AlumNoExisteException {      
+        AlumnoDao ad = new AlumnoDao();
+        if ((ad.buscar(idal)) == null) {
+             throw new AlumNoExisteException();
+        } 
+    }
+
+    public static void comprobarIdas(int idas) throws AsigNoExisteException {
+        AlumnoDao ad = new AlumnoDao();
+        if ((ad.buscar(idas)) == null) {
+           throw new AsigNoExisteException();
+        } 
+    }
+
+    public static void comprobarCoherencia(Matricula matricula) throws MatriculaRepetidaException {
+        MatriculaDao md = new MatriculaDao();
+        if (md.buscar(matricula.getIdal(), matricula.getIdas()) != null) {
+            throw new MatriculaRepetidaException();
+        }
+    }
+    
+    public void comprobarProfesor(String dni,int idas) throws OtroProfesorException{
+        List<Matricula> matriculas=obtener();
+        for(Matricula x:matriculas){
+            if(x.getIdas()==idas&&x.getDni()!=dni){
+                throw new OtroProfesorException();
+            }
+        }}
+        
+    
     @Override
     public void registrar(Matricula matricula) {
         String sql = "INSERT INTO profesoresalumnosasignaturas (dni,idal,idas) values ('" + matricula.getDni()
@@ -55,6 +93,7 @@ public class MatriculaDao implements IMatriculaDao{
         try {
             rs = stm.executeQuery(sql);
             while (rs.next()) {
+             
                 Matricula x = new Matricula();
                 x.setDni(rs.getString(1));
                 x.setIdal(rs.getInt(2));
@@ -65,6 +104,7 @@ public class MatriculaDao implements IMatriculaDao{
         } catch (SQLException e) {
             System.out.println("Error: Clase MatriculaDao, método obtener");
         }
+ 
 
         return matriculas;
     }
@@ -111,49 +151,9 @@ public class MatriculaDao implements IMatriculaDao{
             System.out.println("Error: Clase MatriculaDao, método eliminar");
             e.printStackTrace();
         }
+    } 
     }
+    
+    
+    
 
-    
-     public static void comprobarDni(String dni) throws ProfNoExisteException {
-        ProfesorDao pd = new ProfesorDao();
-        if ((pd.buscar(dni)) == null) {
-            throw new ProfNoExisteException();
-        } else {          
-        }
-    }
-
-    public static void comprobarIdal(int idal) throws AlumNoExisteException {      
-        AlumnoDao ad = new AlumnoDao();
-        if ((ad.buscar(idal)) == null) {
-             throw new AlumNoExisteException();
-        } 
-    }
-
-    public static void comprobarIdas(int idas) throws AsigNoExisteException {
-        AlumnoDao ad = new AlumnoDao();
-        if ((ad.buscar(idas)) == null) {
-           throw new AsigNoExisteException();
-        } 
-    }
-
-    public static void comprobarCoherencia(Matricula matricula) throws MatriculaRepetidaException {
-        MatriculaDao md = new MatriculaDao();
-        if (md.buscar(matricula.getIdal(), matricula.getIdas()) != null) {
-            throw new MatriculaRepetidaException();
-        }
-    }
-    
-    public void comprobarProfesor(String dni,int idas) throws OtroProfesorException{
-        List<Matricula> matriculas=obtener();
-        for(Matricula x:matriculas){
-            if(x.getIdas()==idas&&x.getDni()!=dni){
-                throw new OtroProfesorException();
-            }
-        }
-        
-        
-    }
-    
-    
-    
-}

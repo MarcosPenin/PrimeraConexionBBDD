@@ -22,7 +22,7 @@ public class AsignaturaDatos {
     }
 
     public static int datosIdas() {
-        System.out.println("Introduce el idas de la asignatura que quieres buscar");
+        System.out.println("Introduce el idas de la asignatura");
         int idas = ControlData.lerInt(sc);
         return idas;
     }

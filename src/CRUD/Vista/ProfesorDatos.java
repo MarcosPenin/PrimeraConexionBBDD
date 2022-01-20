@@ -25,7 +25,7 @@ public class ProfesorDatos {
     }
     
     public static String datosDni(){
-        System.out.println("Introduce el dni del profesor que quieres buscar");
+        System.out.println("Introduce el dni del profesor ");
         String dni = ControlData.lerString(sc);
         return dni;
     }

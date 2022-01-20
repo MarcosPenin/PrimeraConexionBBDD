@@ -22,14 +22,14 @@ public class AlumnoDatos {
     }
 
     public static int datosIdal() {
-        System.out.println("Introduce el idal del alumno que quieres buscar");
+        System.out.println("Introduce el idal del alumno");
         int idal = ControlData.lerInt(sc);
         return idal;
     }
 
     public static Alumno datosActualizar(int idal) {
         String codigoAlumno=comprobarCodigo();
-        System.out.println("Introduce el nombre del alumno");
+        System.out.println("Introduce el nuevo nombre del alumno");
         String nombre = ControlData.lerString(sc);
         Alumno alumno = new Alumno(idal, codigoAlumno, nombre);
         return alumno;
