@@ -14,7 +14,9 @@ import java.util.Scanner;
 
 /**
  *
- * @author usuario
+ * Clase controlador de la clase modelo Nota. Para cada caso, llama a NotaDatos para 
+ * pedir los datos que necesida, a NotaDao para operar con la base de datos
+ * y cuando es necesario a NotaVista para mostrar registros.
  */
 public class NotaController {
 
@@ -45,6 +47,7 @@ public class NotaController {
 
         try {
             Nota nota = NotaDatos.datosActualizar();
+            dao.actualizar(nota);
         } catch (NotaNoExisteException | MatriculaNoExisteException ex) {
             System.out.println(ex.getMessage());
         }

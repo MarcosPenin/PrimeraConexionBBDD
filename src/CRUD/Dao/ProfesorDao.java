@@ -31,6 +31,43 @@ public class ProfesorDao implements IProfesorDao {
     static Connection con = Conexion.conexion;
     static ProfesorVista vista = new ProfesorVista();
 
+     /**
+     * Este método devuelve las asignaturas de un profesor. Primero 
+     * busca los idas de asignatura asociados a ese dni en la tabla matrículas, 
+     * guardándolos en un set para evitar duplicados. A continuación compara 
+     * esa lista con la tabla de asignaturas e imprime las coincidencias. 
+     * @param idas 
+     */
+    public void verAsignaturas(String dni) {
+
+        boolean flag=false;
+        MatriculaDao md = new MatriculaDao();
+        AsignaturaDao ad = new AsignaturaDao();
+        AsignaturaVista vs = new AsignaturaVista();
+        List<Matricula> matriculas = md.obtener();
+        List<Asignatura> asignaturas = ad.obtener();
+
+        Set<Integer> codAsignaturas = new HashSet<>();
+
+        for (Matricula x : matriculas) {
+            if (x.getDni().equalsIgnoreCase(dni)) {
+                codAsignaturas.add(x.getIdas());
+            }
+        }
+
+        for (Integer y : codAsignaturas) {
+            for (Asignatura z : asignaturas) {
+                if (y == z.getIdas()) {
+                    vs.verAsignatura(z);
+                    flag=true;
+                }
+            }
+        }
+        if(!flag){
+           System.out.println("No existen asignaturas asignadas a un profesor con ese idal");
+        }
+    }
+    
     @Override
     public void registrar(Profesor profesor) {
         String sql = "INSERT INTO profesores (dni,nombre,titulacion) values ('" + profesor.getDni()
@@ -111,36 +148,5 @@ boolean vacio=true;
             e.printStackTrace();
         }
     }   
-    
-
-    public void verAsignaturas(String dni) {
-
-        boolean flag=false;
-        MatriculaDao md = new MatriculaDao();
-        AsignaturaDao ad = new AsignaturaDao();
-        AsignaturaVista vs = new AsignaturaVista();
-        List<Matricula> matriculas = md.obtener();
-        List<Asignatura> asignaturas = ad.obtener();
-
-        Set<Integer> codAsignaturas = new HashSet<>();
-
-        for (Matricula x : matriculas) {
-            if (x.getDni().equalsIgnoreCase(dni)) {
-                codAsignaturas.add(x.getIdas());
-            }
-        }
-
-        for (Integer y : codAsignaturas) {
-            for (Asignatura z : asignaturas) {
-                if (y == z.getIdas()) {
-                    vs.verAsignatura(z);
-                    flag=true;
-                }
-            }
-        }
-        if(!flag){
-           System.out.println("No existen asignaturas asignadas a un profesor con ese idal");
-        }
-    }
-
+ 
 }

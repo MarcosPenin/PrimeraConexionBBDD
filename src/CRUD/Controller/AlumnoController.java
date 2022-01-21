@@ -13,7 +13,9 @@ import java.util.Scanner;
 
 /**
  *
- * @author usuario
+ * Clase controlador de la clase modelo Alumno. Para cada caso, llama a AlumnoDatos para 
+ * pedir los datos que necesida, a AlumnoDao para operar con la base de datos
+ * y cuando es necesario a AlumnoVista para mostrar registros.
  */
 public class AlumnoController {
 

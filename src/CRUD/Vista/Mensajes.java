@@ -6,7 +6,7 @@ package CRUD.Vista;
 
 /**
  *
- * @author usuario
+ * Clase para guardar la vista de mensajes concretos que utilizo con frecuencia
  */
 public class Mensajes {
     

@@ -17,7 +17,9 @@ import java.util.Scanner;
 
 /**
  *
- * @author a20marcosgp
+ * Clase controlador de la clase modelo Matrícula(nombre para ProfesoresAlumnosAsignaturas). Para cada caso, llama a MatrículaDatos para 
+ * pedir los datos que necesida, a MatrículaDao para operar con la base de datos
+ * y cuando es necesario a MatrículaVista para mostrar registros.
  */
 public class MatriculaController {
 

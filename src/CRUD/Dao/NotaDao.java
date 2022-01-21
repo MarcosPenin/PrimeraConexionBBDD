@@ -1,4 +1,3 @@
-
 package CRUD.Dao;
 
 import static CRUD.Dao.MatriculaDao.stm;
@@ -22,10 +21,10 @@ public class NotaDao implements INotaDao {
 
     static NotaDao dao = new NotaDao();
 
-       @Override
+    @Override
     public void registrar(Nota nota) {
         String sql = "INSERT INTO notas (idal,idas,fecha,nota) values ('" + nota.getIdal()
-                + "','" + nota.getIdas()+ "','" + nota.getFecha() + "','" + nota.getNota()+ "')";
+                + "','" + nota.getIdas() + "','" + nota.getFecha() + "','" + nota.getNota() + "')";
         try {
             stm.execute(sql);
             Mensajes.exito();
@@ -36,33 +35,28 @@ public class NotaDao implements INotaDao {
         }
     }
 
- 
-
-
     @Override
     public void actualizar(Nota nota) {
 
-        String sql = "UPDATE notas SET nota='" + nota.getNota()+ "'" + " WHERE idal='" + nota.getIdal()+ "' and idas='"+nota.getIdas()+ "' and fecha='"+nota.getFecha()+"'";
+        String sql = "UPDATE notas SET nota='" + nota.getNota() + "'" + " WHERE idal='" + nota.getIdal() + "' and idas='" + nota.getIdas() + "' and fecha='" + nota.getFecha() + "'";
 
-            try {
-                stm.execute(sql);
-                Mensajes.exito();
-            } catch (SQLException e) {
-                System.out.println("Error: Clase NotaDao, método actualizar");
-            }
+        try {
+            stm.execute(sql);
+            Mensajes.exito();
+        } catch (SQLException e) {
+            System.out.println("Error: Clase NotaDao, método actualizar");
         }
-    
+    }
 
     @Override
     public void eliminar(Nota nota
     ) {
-        int idal=nota.getIdal();
-        int idas=nota.getIdas();   
-        Date fecha=nota.getFecha();
-        
-        String sql = "DELETE FROM notas WHERE idal='" + idal + "' and idas='"+idas+ "' and fecha='"+fecha+"'";
+        int idal = nota.getIdal();
+        int idas = nota.getIdas();
+        Date fecha = nota.getFecha();
 
-        
+        String sql = "DELETE FROM notas WHERE idal='" + idal + "' and idas='" + idas + "' and fecha='" + fecha + "'";
+
         try {
             stm.execute(sql);
             Mensajes.exito();
@@ -72,19 +66,15 @@ public class NotaDao implements INotaDao {
         }
     }
 
-    
-    
+    public List<Nota> obtener() {
 
-    public List<Nota> obtener() {        
-       
-        
         ResultSet rs = null;
         String sql = "SELECT * FROM notas";
         List<Nota> notas = new ArrayList<>();
         try {
             rs = stm.executeQuery(sql);
             while (rs.next()) {
-              
+
                 Nota x = new Nota();
                 x.setIdal(rs.getInt(1));
                 x.setIdas(rs.getInt(2));
@@ -96,33 +86,25 @@ public class NotaDao implements INotaDao {
         } catch (SQLException e) {
             System.out.println("Error: Clase NotaDao, método obtener");
         }
-   
 
         return notas;
     }
 
     public Nota buscar(Matricula matricula, Date fecha) {
+
         Nota x = null;
         List<Nota> notas = obtener();
         for (Nota y : notas) {
-            if (y.getIdal() == matricula.getIdal() && y.getIdas() == matricula.getIdas() && y.getFecha() == fecha) {
+            if (y.getIdal() == matricula.getIdal() && y.getIdas() == matricula.getIdas() && y.getFecha().toString().equals(fecha.toString())) {
                 x = y;
             }
         }
         return x;
     }
 
-       public static void comprobarNota(Matricula matricula, Date fecha) throws NotaRepetidaException {
+    public static void comprobarNota(Matricula matricula, Date fecha) throws NotaRepetidaException {
         if (dao.buscar(matricula, fecha) != null) {
             throw new NotaRepetidaException();
         }
     }
-    }
-                
-        
-        
-      
-       
-       
-    
-
+}

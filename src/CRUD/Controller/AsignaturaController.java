@@ -17,7 +17,9 @@ import java.util.Scanner;
 
 /**
  *
- * @author usuario
+ * Clase controlador de la clase modelo Asignatura. Para cada caso, llama a AsignaturaDatos para 
+ * pedir los datos que necesida, a AsignaturaoDao para operar con la base de datos
+ * y cuando es necesario a AsignaturaVista para mostrar registros.
  */
 public class AsignaturaController {
 

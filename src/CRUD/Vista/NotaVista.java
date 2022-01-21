@@ -10,12 +10,22 @@ import java.util.List;
  */
 public class NotaVista {
 
+    /**
+     * Imprime todas las notas registradas
+     *
+     * @param notas
+     */
     public void verNotas(List<Nota> notas) {
         for (Nota x : notas) {
             System.out.println("Datos de la nota: " + x.toString());
         }
     }
 
+    /**
+     * Imprime un profesor en concreto
+     *
+     * @param nota
+     */
     public void verNota(Nota nota) {
 
         if (nota != null) {

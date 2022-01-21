@@ -11,7 +11,9 @@ import java.util.Scanner;
 
 /**
  *
- * @author a20marcosgp
+ * Clase controlador de la clase modelo Profesor. Para cada caso, llama a ProfesorDatos para 
+ * pedir los datos que necesida, a ProfesorDao para operar con la base de datos
+ * y cuando es necesario a ProfesorVista para mostrar registros.
  */
 public class ProfesorController {
 

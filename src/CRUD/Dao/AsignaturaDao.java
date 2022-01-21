@@ -32,6 +32,43 @@ public class AsignaturaDao implements IAsignaturaDao {
     static Connection con = Conexion.conexion;
     static AsignaturaVista vista = new AsignaturaVista();
 
+    /**
+     * Este método devuelve los profesores de una asignatura. Primero 
+     * busca los dni asociados a esa asignatura en la tabla matrículas, guardándolos
+     * en un set para que no se repitan. A continuación compara esa lista con 
+     * la tabla de profesores e imprime las coincidencias. 
+     * @param idas 
+     */
+        public void verProfesores(int idas) {
+        boolean flag=false;
+        MatriculaDao md = new MatriculaDao();
+        ProfesorDao pd = new ProfesorDao();
+        ProfesorVista pv = new ProfesorVista();
+        List<Matricula> matriculas = md.obtener();
+        List<Profesor> profesores = pd.obtener();
+
+        Set<String> listaDni = new HashSet<>();
+
+        for (Matricula x : matriculas) {
+            if (x.getIdas() == idas) {
+                listaDni.add(x.getDni());
+            }
+        }
+        for (String y : listaDni) {
+            for (Profesor z : profesores) {
+                if (y.equalsIgnoreCase(z.getDni())) {
+                    pv.verProfesor(z);
+                    flag=true;
+                }
+            }
+        }
+          if(!flag){
+            System.out.println("No existen profesores asignados a una asignatura con ese idas");
+        }
+        
+    }
+    
+    
     public int obtenerIdas() {
         List<Asignatura> asignatura = obtener();
         int idas = 0;
@@ -124,34 +161,6 @@ boolean vacio=true;
         }
     }
 
-    public void verProfesores(int idas) {
-        boolean flag=false;
-        MatriculaDao md = new MatriculaDao();
-        ProfesorDao pd = new ProfesorDao();
-        ProfesorVista pv = new ProfesorVista();
-        List<Matricula> matriculas = md.obtener();
-        List<Profesor> profesores = pd.obtener();
 
-        Set<String> listaDni = new HashSet<>();
-
-        for (Matricula x : matriculas) {
-            if (x.getIdas() == idas) {
-                listaDni.add(x.getDni());
-            }
-        }
-        for (String y : listaDni) {
-            for (Profesor z : profesores) {
-                if (y.equalsIgnoreCase(z.getDni())) {
-                    pv.verProfesor(z);
-                    flag=true;
-                }
-            }
-
-        }
-          if(!flag){
-            System.out.println("No existen profesores asignados a una asignatura con ese idas");
-        }
-        
-    }
 
 }

@@ -24,7 +24,30 @@ public class AlumnoDao implements IAlumnoDao {
     static Statement stm = Conexion.sentencia;
     static Connection con = Conexion.conexion;
     static AlumnoVista vista = new AlumnoVista();
+    
+/**
+ * Este método devuelve las notas asignadas a un alumno buscando las que 
+ * coinciden con su idal en la tabla matrículas
+ */
+       public void verNotas(int idal) {
+        boolean flag = false;
+        NotaDao nd = new NotaDao();
+        NotaVista vd = new NotaVista();
+        List<Nota> notas = nd.obtener();
+        for (Nota x : notas) {
+            if (x.getIdal() == idal) {
+                vd.verNota(x);
+                flag = true;
+            }
+        }
+        if (!flag) {
+          System.out.println("No existen notas asignadas a un alumno con ese idal");
+        }
 
+    }
+    
+    
+    
     public int obtenerIdal() {
         List<Alumno> alumnos = obtener();
         int idal = 0;
@@ -38,6 +61,11 @@ public class AlumnoDao implements IAlumnoDao {
         return idal;
     }
 
+    
+    
+    
+    
+    
     @Override
     public void registrar(Alumno alumno) {
         String sql = "INSERT INTO alumnos (idal,codigoAlumno,nombre) values ('" + alumno.getIdal()
@@ -119,21 +147,8 @@ public class AlumnoDao implements IAlumnoDao {
         }
     }
 
-    public void verNotas(int idal) {
-        boolean flag = false;
-        NotaDao nd = new NotaDao();
-        NotaVista vd = new NotaVista();
-        List<Nota> notas = nd.obtener();
-        for (Nota x : notas) {
-            if (x.getIdal() == idal) {
-                vd.verNota(x);
-                flag = true;
-            }
-        }
-        if (!flag) {
-          System.out.println("No existen notas asignadas a un alumno con ese idal");
-        }
-
-    }
+    
+    
+ 
 
 }

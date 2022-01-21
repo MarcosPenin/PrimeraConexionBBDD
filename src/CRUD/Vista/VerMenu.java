@@ -13,10 +13,15 @@ import utilidades.Menu;
 
 /**
  *
- * @author usuario
+ * Imprime el menú principal y los submenús que tiene asociados. En función de las opciones escogidas
+ * se realiza una u otra llamada al controlador
  */
 public class VerMenu {
 
+    
+    
+    
+    
     static Scanner sc = new Scanner(System.in);
     static Menu menuTablas = new Menu(tablas());
     static byte op;

@@ -25,6 +25,17 @@ public class MatriculaDatos {
     static Scanner sc = new Scanner(System.in);
     MatriculaDao dao = new MatriculaDao();
 
+    /**
+     * Devuelve una asignatura en base a los datos introducidos
+     * @return
+     * @throws ProfNoExisteException
+     * @throws AlumNoExisteException
+     * @throws AsigNoExisteException
+     * @throws MatriculaRepetidaException
+     * @throws OtroProfesorException 
+     */
+    
+    
     public Matricula datosRegistrar() throws ProfNoExisteException, AlumNoExisteException, AsigNoExisteException, MatriculaRepetidaException,OtroProfesorException {
         Matricula matricula = null;
         try {
@@ -57,7 +68,13 @@ public class MatriculaDatos {
         
         return matricula;
     }
-
+/**
+ * Devuelve una matrícula en base a los datos introducidos
+ * @return
+ * @throws MatriculaNoExisteException
+ * @throws ProfNoExisteException 
+ */
+    
     public static Matricula datosActualizar() throws MatriculaNoExisteException, ProfNoExisteException {
         Matricula matricula = null;
         try {
@@ -74,7 +91,11 @@ public class MatriculaDatos {
         return matricula;
     }
 
-     
+     /**
+      * Devuelve una matrícula en base a los datos introducidos
+      * @return
+      * @throws MatriculaNoExisteException 
+      */
     public static Matricula datosBuscar() throws MatriculaNoExisteException {
         Matricula matricula = null;
         System.out.println("Introduce el idal del alumno");

@@ -12,16 +12,27 @@ import excepciones.MatriculaNoExisteException;
 import excepciones.NotaNoExisteException;
 import excepciones.NotaRepetidaException;
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import utilidades.ControlData;
 
 /**
  *
- * @author usuario
+ * Esta clase es diferenc
  */
 public class NotaDatos {
 
     static NotaDao dao = new NotaDao();
 
+    /**
+     * Devuelve una nota en base a los datos introducidos, comprobando si 
+     * responde a una matrícula existente y si el formato de la fecha
+     * introducida es correcto. 
+     * @return
+     * @throws MatriculaNoExisteException
+     * @throws NotaRepetidaException 
+     */
+    
     public static Nota datosRegistrar() throws MatriculaNoExisteException, NotaRepetidaException {
         Matricula matricula = null;
         Nota nota = null;
@@ -30,14 +41,7 @@ public class NotaDatos {
             matricula = MatriculaDatos.datosBuscar();
             System.out.println("Introduce la nota");
             float nta = ControlData.lerFloat(sc);
-            System.out.println("Introduce el año");
-            int ano = ControlData.lerInt(sc)-1900;
-            System.out.println("Introduce el mes");
-            int mes = ControlData.lerInt(sc)-1;
-            System.out.println("Introduce el día");
-            int dia = ControlData.lerInt(sc);
-            Date fecha = new Date(ano, mes, dia);
-         
+            Date fecha = ControlData.pedirFecha();
             NotaDao.comprobarNota(matricula, fecha);
 
             nota = new Nota(matricula.getIdal(), matricula.getIdas(), nta, fecha);
@@ -50,45 +54,49 @@ public class NotaDatos {
         return nota;
     }
 
+    /**
+     * Devuelve una nota en base a los datos introducidos
+     * @return
+     * @throws NotaNoExisteException
+     * @throws MatriculaNoExisteException 
+     */
+    
     public static Nota datosBuscar() throws NotaNoExisteException, MatriculaNoExisteException {
         Matricula matricula = null;
-        Nota nota=null;
+        Nota nota = null;
+
         matricula = MatriculaDatos.datosBuscar();
-        System.out.println("Introduce el año");
-        int ano = ControlData.lerInt(sc);
-        System.out.println("Introduce el mes");
-        int mes = ControlData.lerInt(sc);
-        System.out.println("Introduce el día");
-        int dia = ControlData.lerInt(sc);
-        Date fecha = new Date(ano, mes, dia);
-        
-        if(dao.buscar(matricula, fecha)!=null){
-            nota=dao.buscar(matricula, fecha);
-        }else{
+        Date fecha = ControlData.pedirFecha2();
+
+        if (dao.buscar(matricula, fecha) != null) {
+            nota = dao.buscar(matricula, fecha);
+        } else {
             throw new NotaNoExisteException();
         }
-
         return nota;
 
     }
 
-      public static Nota datosActualizar() throws NotaNoExisteException, MatriculaNoExisteException {
+    /**
+     * Devuelve una nota en base a los datos introducidos. 
+     * @return
+     * @throws NotaNoExisteException
+     * @throws MatriculaNoExisteException 
+     */
+    
+    public static Nota datosActualizar() throws NotaNoExisteException, MatriculaNoExisteException {
         Nota nota = null;
 
         try {
             nota = datosBuscar();
             System.out.println("Introduce la nueva nota");
-            float nta=ControlData.lerFloat(sc);
-           nota.setNota(nta);
+            float nta = ControlData.lerFloat(sc);
+            nota.setNota(nta);
         } catch (NotaNoExisteException ex) {
             throw new NotaNoExisteException();
-        
-        } 
+
+        }
         return nota;
     }
-    
-    
-    
-    
-    
+
 }

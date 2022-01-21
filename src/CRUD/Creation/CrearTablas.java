@@ -8,6 +8,8 @@ import java.sql.*;
  */
 public class CrearTablas {
 
+    //Clase para crear la base de datos y sus tablas si no existen
+    
     public static void crearTabla(Statement sentencia) {
         try {
 //            sentencia.execute("DROP DATABASE IF EXISTS INSTITUTO;");

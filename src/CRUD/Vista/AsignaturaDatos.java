@@ -11,8 +11,13 @@ import utilidades.ControlData;
  */
 public class AsignaturaDatos {
     
-        static Scanner sc = new Scanner(System.in);
+    static Scanner sc = new Scanner(System.in);
 
+  /**
+   * Devuelve una instancia de asignatura en base a los datos introducidos
+   * @param idas
+   * @return 
+   */
     public static Asignatura datosRegistrar(int idas) {
         String codigoAsignatura=comprobarCodigo();
         System.out.println("Introduce el nombre del ciclo");
@@ -21,12 +26,23 @@ public class AsignaturaDatos {
         return asignatura;
     }
 
+    /**
+     * Pide un idas para la asignatura y lo devuelve
+     * @return 
+     */
+    
     public static int datosIdas() {
         System.out.println("Introduce el idas de la asignatura");
         int idas = ControlData.lerInt(sc);
         return idas;
     }
 
+    /**
+     * Devuelve una instancia de Asignatura en base a los datos introducidos
+     * @param idas
+     * @return 
+     */
+    
     public static Asignatura datosActualizar(int idas) {
         String codigoAsignatura=comprobarCodigo();
         System.out.println("Introduce el nombre del ciclo");
@@ -35,6 +51,11 @@ public class AsignaturaDatos {
         return asignatura;
     }
 
+    /**
+     * Comprueba el código de la asignatura llamando a los datos correspondientes
+     * @return 
+     */
+    
     public static String comprobarCodigo() {
         boolean correcto = false;
         String codigoAsignatura;

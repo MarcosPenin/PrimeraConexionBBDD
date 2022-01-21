@@ -6,10 +6,12 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
- * @author a20marcosgp
+ * Conexión a la base de datos integrando el patrón singleton
  */
 public class Conexion {
 
@@ -19,13 +21,19 @@ public class Conexion {
 
     public static Conexion getInStance() {
 
-        if (instance == null) {          
+        if (instance == null) {
             instance = new Conexion();
+        }else try {
+            if(conexion.isClosed()){
+                instance = new Conexion();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
         return instance;
     }
-
-    public static Connection conectar() {
+    
+    private Conexion() {
 
         String driver = "com.mysql.jdbc.Driver";
         String url = "jdbc:mysql://localhost:3307/auxiliar?user=root&password=usbw";
@@ -41,6 +49,15 @@ public class Conexion {
             System.exit(3);
         }
 
-        return conexion;
     }
+
+    public static String close() {
+        try {
+            sentencia.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "Conexión cerrada";
+    }
+
 }

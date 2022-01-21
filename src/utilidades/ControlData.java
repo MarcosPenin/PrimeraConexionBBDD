@@ -4,12 +4,13 @@ import excepciones.DniInvalido;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.sql.Date;
 
 public class ControlData {
 
-    /**
-     *   * Comprueba que el código esté formado por tres dígitos seguidos de
-     * una letra
+       /**
+     *   * Comprueba que el código esté formado por tres dígitos seguidos de una
+     * letra
      *
      * @param codigo
      * @throws CodigoIncorrecto
@@ -22,9 +23,83 @@ public class ControlData {
         } else {
             System.out.println("El código debe estar formado por tres dígitos seguidos de una letra");
         }
-        return correcto; 
+        return correcto;
     }
+/**
+ * Pide una fecha por teclado y la devuelve convertida a Date
+ * @return 
+ */
+    
+    
+    
+    public static Date pedirFecha() {
 
+        Scanner sc = new Scanner(System.in);
+        Pattern x = Pattern.compile("[0-9]{4}[-]{1}[0-9]{2}[-]{1}[0-9]{2}");
+        Date fecha = null;
+
+        do {
+            System.out.println("Introduce la fecha, formato yyyy-MM-dd");
+            String fechaString = ControlData.lerString(sc);
+
+            Matcher y = x.matcher(fechaString);
+
+            if (y.matches()) {
+
+                int ano = Integer.parseInt(fechaString.substring(0, 4));
+                int mes = Integer.parseInt(fechaString.substring(5, 7));
+               int dia = Integer.parseInt(fechaString.substring(8, 10));
+               
+                fecha = new Date(ano-1900, mes-1, dia+1);
+            }
+            if (fecha == null) {
+                System.out.println("Formato no soportado");
+            }
+
+        } while (fecha == null);
+
+        return fecha;
+
+    }
+    
+    /**
+     * No entiendo por qué es necesario, pero cuando llamaba al método anterior desde el método buscar, la fecha obtenida 
+     * era diferente a la registrada en un día. Fui incapaz de encontrar el origen del error, así que tuve que parchear creando un nuevo 
+     * método sin el ajuste en el día. 
+     * @return 
+     */
+    
+     public static Date pedirFecha2() {
+
+        Scanner sc = new Scanner(System.in);
+        Pattern x = Pattern.compile("[0-9]{4}[-]{1}[0-9]{2}[-]{1}[0-9]{2}");
+        Date fecha = null;
+
+        do {
+            System.out.println("Introduce la fecha, formato yyyy-MM-dd");
+            String fechaString = ControlData.lerString(sc);
+
+            Matcher y = x.matcher(fechaString);
+
+            if (y.matches()) {
+
+                int ano = Integer.parseInt(fechaString.substring(0, 4));
+                int mes = Integer.parseInt(fechaString.substring(5, 7));
+               int dia = Integer.parseInt(fechaString.substring(8, 10));
+    
+                fecha = new Date(ano-1900, mes-1, dia);
+            }
+            if (fecha == null) {
+                System.out.println("Formato no soportado");
+            }
+
+        } while (fecha == null);
+
+        return fecha;
+
+    }
+    
+ 
     /**
      * Comprueba que un DNI esté compuesto de ocho dígitos seguidos de una letra
      * válida
